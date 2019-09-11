@@ -538,4 +538,30 @@ class auth_ldap_plugin_testcase extends advanced_testcase {
             }
         }
     }
+
+    /**
+     * Check that the password URL is displayed correctly
+     */
+    public function test_get_password_change_info() {
+        global $CFG;
+        $this->resetAfterTest();
+
+        $user = $this->getDataGenerator()->create_user(['auth' => 'ldap']);
+
+        $passwordchangeurl = $CFG->wwwroot . '/changepassword';
+
+        set_config('changepasswordurl', $passwordchangeurl, 'auth_ldap');
+
+        $auth = get_auth_plugin($user->auth);
+
+        $info = $auth->get_password_change_info($user);
+
+        $this->assertEquals(
+                ['subject', 'message'],
+                array_keys($info),
+                '', 0.0, 10, true);
+        $this->assertStringContainsString(
+                "To change your password, please go to the following web address:{$passwordchangeurl}",
+                preg_replace("/\r|\n/", "", $info['message']));
+    }
 }

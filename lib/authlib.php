@@ -778,7 +778,7 @@ class auth_plugin_base {
 
         if ($this->can_change_password() and $this->change_password_url()) {
             // We have some external url for password changing.
-            $data->link = $this->change_password_url();
+            $data->link = $this->change_password_url()->out();
         } else {
             // No way to change password, sorry.
             $data->link = '';
