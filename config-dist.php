@@ -325,6 +325,13 @@ $CFG->admin = 'admin';
 //      igbinary support to make the setting to work. Also, if you change the serializer you have to flush the database!
 //      $CFG->session_redis_serializer_use_igbinary = false; // Optional, default is PHP builtin serializer.
 //
+//   If Redis is installed in a cluster via Redis Sentinel and you are using php-redis > 5.2, you can use the
+//   sentinel to get to the right master. Typical setup is:
+//      $CFG->session_redis_sentinel_host = '127.0.0.1';
+//      $CFG->session_redis_sentinel_port = 26379;
+//      $CFG->session_redis_master_name = 'mymaster';
+//      (... same as other redis sessions)
+//   Note that auth is not yet supported for Redis Sentinel.
 // Please be aware that when selecting Memcached for sessions that it is advised to use a dedicated
 // memcache server. The memcached extension does not provide isolated environments for individual uses.
 // Using the same server for other purposes (MUC for example) can lead to sessions being prematurely removed should

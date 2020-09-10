@@ -22,6 +22,8 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use core\session\exception;
+
 defined('MOODLE_INTERNAL') || die();
 
 /**
@@ -37,7 +39,7 @@ defined('MOODLE_INTERNAL') || die();
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class cachestore_redis extends cache_store implements cache_is_key_aware, cache_is_lockable,
-        cache_is_configurable, cache_is_searchable {
+    cache_is_configurable, cache_is_searchable {
     /**
      * Compressor: none.
      */
@@ -161,7 +163,30 @@ class cachestore_redis extends cache_store implements cache_is_key_aware, cache_
         }
         $password = !empty($configuration['password']) ? $configuration['password'] : '';
         $prefix = !empty($configuration['prefix']) ? $configuration['prefix'] : '';
-        $this->redis = $this->new_redis($configuration['server'], $prefix, $password);
+
+        $server = $configuration['server'];
+        // Deal with Redis Sentinel.
+        if (!empty($configuration['issentinel'])) {
+            // Extract the port from the server specification.
+            $port = ($server[0] === '/') ? null : 26379;
+            if (strpos($server, ':')) {
+                $serverconf = explode(':', $server);
+                $server = $serverconf[0];
+                $port = $serverconf[1];
+            }
+            // TODO: support password auth for sentinel.
+            try {
+                list($server, $port) = \core\local\redis_helper::get_redis_master_from_sentinel(
+                    $server,
+                    $port,
+                    $configuration['mastername']);
+            } catch (exception $e) {
+                debugging('Cannot connect to the redis sentinel, trying to connect directly.',
+                    DEBUG_DEVELOPER);
+            }
+
+        }
+        $this->redis = $this->new_redis($server, $prefix, $password);
     }
 
     /**
@@ -497,6 +522,8 @@ class cachestore_redis extends cache_store implements cache_is_key_aware, cache_
     public static function config_get_configuration_array($data) {
         return array(
             'server' => $data->server,
+            'issentinel' => $data->issentinel,
+            'mastername' => $data->mastername,
             'prefix' => $data->prefix,
             'password' => $data->password,
             'serializer' => $data->serializer,
@@ -514,6 +541,10 @@ class cachestore_redis extends cache_store implements cache_is_key_aware, cache_
     public static function config_set_edit_form_data(moodleform $editform, array $config) {
         $data = array();
         $data['server'] = $config['server'];
+        $data['issentinel'] = !empty($config['issentinel']) ? $config['issentinel'] : false;
+        $data['mastername'] =
+            !empty($config['mastername']) ? $config['mastername'] : \core\local\redis_helper::DEFAULT_SENTINEL_MASTER_NAME;
+
         $data['prefix'] = !empty($config['prefix']) ? $config['prefix'] : '';
         $data['password'] = !empty($config['password']) ? $config['password'] : '';
         if (!empty($config['serializer'])) {
@@ -547,6 +578,12 @@ class cachestore_redis extends cache_store implements cache_is_key_aware, cache_
         if (!empty($config->test_password)) {
             $configuration['password'] = $config->test_password;
         }
+        if (!empty($config->test_is_sentinel)) {
+            $configuration['issentinel'] = $config->test_is_sentinel;
+        }
+        if (!empty($config->test_sentinel_master)) {
+            $configuration['mastername'] = $config->test_sentinel_master;
+        }
         $cache = new cachestore_redis('Redis test', $configuration);
         $cache->initialise($definition);
 
@@ -564,10 +601,20 @@ class cachestore_redis extends cache_store implements cache_is_key_aware, cache_
         if (!self::are_requirements_met() || !self::ready_to_be_used_for_testing()) {
             throw new moodle_exception('TEST_CACHESTORE_REDIS_TESTSERVERS not configured, unable to create test configuration');
         }
-
-        return ['server' => TEST_CACHESTORE_REDIS_TESTSERVERS,
-                'prefix' => $DB->get_prefix(),
+        $configuration = ['server' => TEST_CACHESTORE_REDIS_TESTSERVERS,
+            'prefix' => $DB->get_prefix(),
         ];
+        // Check for sentinel.
+        if (defined('TEST_CACHESTORE_REDIS_IS_SENTINEL')
+            && TEST_CACHESTORE_REDIS_IS_SENTINEL
+            && (defined('TEST_CACHESTORE_REDIS_SENTINEL_TESTSERVERS')
+                || !defined('TEST_CACHESTORE_REDIS_SENTINEL_MASTERNAME'))
+        ) {
+            $configuration['server'] = TEST_CACHESTORE_REDIS_SENTINEL_TESTSERVERS;
+            $configuration['issentinel'] = true;
+            $configuration['mastername'] = TEST_CACHESTORE_REDIS_SENTINEL_MASTERNAME;
+        }
+        return $configuration;
     }
 
     /**
