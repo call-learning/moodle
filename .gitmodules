@@ -1,0 +1,18 @@
+[submodule "mod/questionnaire"]
+	path = mod/questionnaire
+	url = https://github.com/PoetOS/moodle-mod_questionnaire.git
+[submodule "report/customsql"]
+	path = report/customsql
+	url = https://github.com/moodleou/moodle-report_customsql
+[submodule "mod/customcert"]
+	path = mod/customcert
+	url = https://github.com/mdjnelson/moodle-mod_customcert
+[submodule "lib/editor/atto/plugins/styles"]
+	path = lib/editor/atto/plugins/styles
+	url = https://github.com/moodleuulm/moodle-atto_styles
+[submodule "lib/editor/atto/wordimport"]
+	path = lib/editor/atto/wordimport
+	url = https://github.com/ecampbell/moodle-atto_wordimport
+[submodule "mod/facetoface"]
+	path = mod/facetoface
+	url = https://github.com/catalyst/moodle-mod_facetoface/
