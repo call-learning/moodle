@@ -39,10 +39,25 @@ class cachestore_redis_addinstance_form extends cachestore_addinstance_form {
     protected function configuration_definition() {
         $form = $this->_form;
 
+        // This is either the redis master server or the redis sentinel.
         $form->addElement('text', 'server', get_string('server', 'cachestore_redis'), array('size' => 24));
         $form->setType('server', PARAM_TEXT);
         $form->addHelpButton('server', 'server', 'cachestore_redis');
         $form->addRule('server', get_string('required'), 'required');
+
+        // Check if we can use the php-redis sentinel implementation.
+        if (\core\local\redis_helper::is_redis_sentinel_version()) {
+            $form->addElement('advcheckbox', 'issentinel', get_string('issentinel', 'cachestore_redis'));
+            $form->setType('issentinel', PARAM_BOOL);
+            $form->addHelpButton('issentinel', 'issentinel', 'cachestore_redis');
+
+            $form->addElement('text', 'mastername', get_string('mastername', 'cachestore_redis'), array('size' => 255));
+            $form->setType('mastername', PARAM_TEXT);
+            $form->setDefault('mastername', \core\local\redis_helper::DEFAULT_SENTINEL_MASTER_NAME);
+            $form->addHelpButton('mastername', 'mastername', 'cachestore_redis');
+            // Disable my control unless a checkbox is checked.
+            $form->disabledIf('mastername', 'issentinel');
+        }
 
         $form->addElement('passwordunmask', 'password', get_string('password', 'cachestore_redis'));
         $form->setType('password', PARAM_RAW);

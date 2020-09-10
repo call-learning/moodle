@@ -58,8 +58,19 @@ class cachestore_redis_test extends cachestore_tests {
         if (!cachestore_redis::are_requirements_met() || !defined('TEST_CACHESTORE_REDIS_TESTSERVERS')) {
             $this->markTestSkipped('Could not test cachestore_redis. Requirements are not met.');
         }
+
+        // Check for sentinel.
+        if (defined('TEST_CACHESTORE_REDIS_IS_SENTINEL')
+            && TEST_CACHESTORE_REDIS_IS_SENTINEL
+            && (!defined('TEST_CACHESTORE_REDIS_SENTINEL_TESTSERVERS')
+                || !defined('TEST_CACHESTORE_REDIS_SENTINEL_MASTERNAME'))
+        ) {
+            $this->markTestSkipped('Could not test cachestore_redis with sentinel. Requirements are not met.');
+        }
+
         parent::setUp();
     }
+
     protected function tearDown() {
         parent::tearDown();
 
