@@ -34,6 +34,25 @@ $settings->add(
         16
     )
 );
+// Check if we can use the php-redis sentinel implementation.
+if (core\local\redis_helper::is_redis_sentinel_version()) {
+    $settings->add(
+        new admin_setting_configcheckbox(
+            'cachestore_redis/is_sentinel',
+            get_string('test_is_sentinel', 'cachestore_redis'),
+            get_string('test_is_sentinel_desc', 'cachestore_redis'),
+            false
+        )
+    );
+    $settings->add(
+        new admin_setting_configtext(
+            'cachestore_redis/sentinel_master',
+            get_string('test_sentinel_master', 'cachestore_redis'),
+            get_string('test_sentinel_master_desc', 'cachestore_redis'),
+            \core\local\redis_helper::DEFAULT_SENTINEL_MASTER_NAME
+        )
+    );
+}
 $settings->add(
     new admin_setting_configpasswordunmask(
         'cachestore_redis/test_password',
