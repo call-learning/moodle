@@ -16,3 +16,21 @@
 [submodule "mod/facetoface"]
 	path = mod/facetoface
 	url = https://github.com/catalyst/moodle-mod_facetoface/
+[submodule "local/staticpage"]
+	path = local/staticpage
+	url = https://github.com/moodleuulm/moodle-local_staticpage.git
+[submodule "local/contact"]
+	path = local/contact
+	url = https://github.com/michael-milette/moodle-local_contact.git
+[submodule "theme/clboost"]
+	path = theme/clboost
+	url = https://github.com/call-learning/moodle-theme_clboost.git
+[submodule "theme/envf"]
+	path = theme/envf
+	url = https://github.com/call-learning/moodle-theme_envf.git
+[submodule "blocks/mcms"]
+	path = blocks/mcms
+	url = https://github.com/call-learning/moodle-block_mcms.git
+[submodule "local/mcms"]
+	path = local/mcms
+	url = https://github.com/call-learning/moodle-local_mcms.git
