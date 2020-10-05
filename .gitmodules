@@ -1,0 +1,24 @@
+[submodule "theme/clboost"]
+	path = theme/clboost
+	url = https://github.com/call-learning/moodle-theme_clboost.git
+[submodule "theme/vetagro"]
+	path = theme/vetagro
+	url = https://github.com/call-learning/moodle-theme_vetagro.git
+[submodule "blocks/thumblinks_action"]
+	path = blocks/thumblinks_action
+	url = https://github.com/call-learning/moodle-block_thumblinks_action.git
+[submodule "local/competveteval"]
+	path = local/competveteval
+	url = https://github.com/call-learning/moodle-local_competveteval.git
+[submodule "blocks/course_suggest"]
+	path = blocks/course_suggest
+	url = https://github.com/call-learning/moodle-block_course_suggest.git
+[submodule "blocks/featured_courses"]
+	path = blocks/featured_courses
+	url = https://github.com/call-learning/moodle-block_featured_courses.git
+[submodule "blocks/sponsors"]
+	path = blocks/sponsors
+	url = https://github.com/call-learning/moodle-block_sponsors.git
+[submodule "blocks/vetagro_news"]
+	path = blocks/vetagro_news
+	url = https://github.com/call-learning/moodle-block_vetagro_news.git
