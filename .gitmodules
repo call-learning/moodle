@@ -34,3 +34,9 @@
 [submodule "local/mcms"]
 	path = local/mcms
 	url = https://github.com/call-learning/moodle-local_mcms.git
+[submodule "blocks/sponsors"]
+	path = blocks/sponsors
+	url = https://github.com/call-learning/moodle-block_sponsors.git
+[submodule "blocks/faq"]
+	path = blocks/faq
+	url = https://github.com/call-learning/moodle-block_faq.git
