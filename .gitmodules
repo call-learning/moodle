@@ -22,3 +22,6 @@
 [submodule "blocks/vetagro_news"]
 	path = blocks/vetagro_news
 	url = https://github.com/call-learning/moodle-block_vetagro_news.git
+[submodule "local/resourcelibrary"]
+	path = local/resourcelibrary
+	url = https://github.com/call-learning/moodle-local_resourcelibrary.git
