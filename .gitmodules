@@ -34,3 +34,6 @@
 [submodule "blocks/faq"]
 	path = blocks/faq
 	url = https://github.com/call-learning/moodle-block_faq.git
+[submodule "blocks/contact_form"]
+	path = blocks/contact_form
+	url = https://github.com/call-learning/moodle-block_contact_form.git
