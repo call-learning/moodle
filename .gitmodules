@@ -25,3 +25,18 @@
 [submodule "local/resourcelibrary"]
 	path = local/resourcelibrary
 	url = https://github.com/call-learning/moodle-local_resourcelibrary.git
+[submodule "customfield/field/multiselect"]
+	path = customfield/field/multiselect
+	url = https://github.com/call-learning/moodle-customfield_multiselect.git
+[submodule "local/syllabus"]
+	path = local/syllabus
+	url = https://github.com/call-learning/moodle-local_syllabus.git
+[submodule "admin/tool/importer"]
+	path = admin/tool/importer
+	url = https://github.com/call-learning/moodle-tool_importer.git
+[submodule "local/vetagropro"]
+	path = local/vetagropro
+	url = https://github.com/call-learning/moodle-local_vetagropro.git
+[submodule "enrol/gescof"]
+	path = enrol/gescof
+	url = https://github.com/call-learning/moodle-enrol_gescof.git
