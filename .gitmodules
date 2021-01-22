@@ -1,0 +1,24 @@
+[submodule "theme/clboost"]
+	path = theme/clboost
+	url = https://github.com/call-learning/moodle-theme_clboost.git
+[submodule "local/edximport"]
+	path = local/edximport
+	url = https://github.com/call-learning/moodle-local_edximport.git
+[submodule "local/resourcelibrary"]
+	path = local/resourcelibrary
+	url = https://github.com/call-learning/moodle-local_resourcelibrary.git
+[submodule "local/syllabus"]
+	path = local/syllabus
+	url = https://github.com/call-learning/moodle-local_syllabus.git
+[submodule "blocks/featured_courses"]
+	path = blocks/featured_courses
+	url = https://github.com/call-learning/moodle-block_featured_courses.git
+[submodule "blocks/mcms"]
+	path = blocks/mcms
+	url = https://github.com/call-learning/moodle-block_mcms.git
+[submodule "customfield/field/multiselect"]
+	path = customfield/field/multiselect
+	url = https://github.com/call-learning/moodle-customfield_multiselect.git
+[submodule "theme/imtpn"]
+	path = theme/imtpn
+	url = https://github.com/call-learning/moodle-theme_imtpn.git
