@@ -1,0 +1,81 @@
+[submodule "theme/clboost"]
+	path = theme/clboost
+	url = https://github.com/call-learning/moodle-theme_clboost.git
+[submodule "local/edximport"]
+	path = local/edximport
+	url = https://github.com/call-learning/moodle-local_edximport.git
+[submodule "local/resourcelibrary"]
+	path = local/resourcelibrary
+	url = https://github.com/call-learning/moodle-local_resourcelibrary.git
+[submodule "local/syllabus"]
+	path = local/syllabus
+	url = https://github.com/call-learning/moodle-local_syllabus.git
+[submodule "blocks/featured_courses"]
+	path = blocks/featured_courses
+	url = https://github.com/call-learning/moodle-block_featured_courses.git
+[submodule "blocks/mcms"]
+	path = blocks/mcms
+	url = https://github.com/call-learning/moodle-block_mcms.git
+[submodule "customfield/field/multiselect"]
+	path = customfield/field/multiselect
+	url = https://github.com/call-learning/moodle-customfield_multiselect.git
+[submodule "theme/imtpn"]
+	path = theme/imtpn
+	url = https://github.com/call-learning/moodle-theme_imtpn.git
+[submodule "mod/groupselect"]
+	path = mod/groupselect
+	url = https://github.com/rogerbaba/moodle-mod_groupselect.git
+[submodule "blocks/rss_thumbnails"]
+	path = blocks/rss_thumbnails
+	url = https://github.com/call-learning/moodle-block_rss_thumbnails.git
+[submodule "blocks/sharing_cart"]
+	path = blocks/sharing_cart
+	url = https://github.com/donhinkelman/moodle-block_sharing_cart.git
+[submodule "blocks/forum_feed"]
+	path = blocks/forum_feed
+	url = https://github.com/call-learning/moodle-block_forum_feed.git
+[submodule "blocks/enhanced_myoverview"]
+	path = blocks/enhanced_myoverview
+	url = https://github.com/call-learning/moodle-block_enhanced_myoverview.git
+[submodule "blocks/thumblinks_action"]
+	path = blocks/thumblinks_action
+	url = https://github.com/call-learning/moodle-block_thumblinks_action.git
+[submodule "blocks/forum_groups"]
+	path = blocks/forum_groups
+	url = https://github.com/call-learning/moodle-block_forum_groups.git
+[submodule "blocks/group_members"]
+	path = blocks/group_members
+	url = https://github.com/call-learning/moodle-block_group_members.git
+[submodule "theme/imtpn_lille"]
+	path = theme/imtpn_lille
+	url = https://github.com/call-learning/moodle-theme_imtpn_lille.git
+[submodule "course/format/onetopic"]
+	path = course/format/onetopic
+	url = https://github.com/davidherney/moodle-format_onetopic.git
+[submodule "theme/imtpn_telecom_sud_paris/"]
+	path = theme/imtpn_telecom_sud_paris/
+	url = https://github.com/call-learning/moodle-theme_imtpn_telecom_sud_paris.git
+[submodule "theme/imtpn_telecom_paris"]
+	path = theme/imtpn_telecom_paris
+	url = https://github.com/call-learning/moodle-theme_imtpn_telecom_paris.git
+[submodule "theme/imtpn_telecom_sud_paris"]
+	path = theme/imtpn_telecom_sud_paris
+	url = https://github.com/call-learning/moodle-theme_imtpn_telecom_sud_paris.git
+[submodule "theme/imtpn_business_school"]
+	path = theme/imtpn_business_school
+	url = https://github.com/call-learning/moodle-theme_imtpn_business_school.git
+[submodule "theme/imtpn_atlantique"]
+	path = theme/imtpn_atlantique
+	url = https://github.com/call-learning/moodle-theme_imtpn_atlantique.git
+[submodule "theme/imtpn_ales"]
+	path = theme/imtpn_ales
+	url = https://github.com/call-learning/moodle-theme_imtpn_ales.git
+[submodule "theme/imtpn_albi_carmaux"]
+	path = theme/imtpn_albi_carmaux
+	url = https://github.com/call-learning/moodle-theme_imtpn_albi_carmaux.git
+[submodule "theme/imtpn_stetienne"]
+	path = theme/imtpn_stetienne
+	url = https://github.com/call-learning/moodle-theme_imtpn_stetienne.git
+[submodule "local/regperiod"]
+	path = local/regperiod
+	url = https://github.com/Pedagotheque/moodle-local_regperiod.git
