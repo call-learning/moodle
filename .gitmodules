@@ -22,3 +22,9 @@
 [submodule "theme/imtpn"]
 	path = theme/imtpn
 	url = https://github.com/call-learning/moodle-theme_imtpn.git
+[submodule "mod/groupselect"]
+	path = mod/groupselect
+	url = https://github.com/rogerbaba/moodle-mod_groupselect.git
+[submodule "blocks/rss_thumbnails"]
+	path = blocks/rss_thumbnails
+	url = https://github.com/call-learning/moodle-block_rss_thumbnails.git
