@@ -31,3 +31,9 @@
 [submodule "blocks/sharing_cart"]
 	path = blocks/sharing_cart
 	url = https://github.com/donhinkelman/moodle-block_sharing_cart.git
+[submodule "blocks/forum_feed"]
+	path = blocks/forum_feed
+	url = https://github.com/call-learning/moodle-block_forum_feed.git
+[submodule "blocks/enhanced_myoverview"]
+	path = blocks/enhanced_myoverview
+	url = https://github.com/call-learning/moodle-block_enhanced_myoverview.git
