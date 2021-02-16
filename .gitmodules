@@ -28,3 +28,6 @@
 [submodule "blocks/rss_thumbnails"]
 	path = blocks/rss_thumbnails
 	url = https://github.com/call-learning/moodle-block_rss_thumbnails.git
+[submodule "blocks/sharing_cart"]
+	path = blocks/sharing_cart
+	url = https://github.com/donhinkelman/moodle-block_sharing_cart.git
