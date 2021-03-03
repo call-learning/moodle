@@ -37,3 +37,36 @@
 [submodule "enrol/gescof"]
 	path = enrol/gescof
 	url = https://github.com/call-learning/moodle-enrol_gescof.git
+[submodule "blocks/exacomp"]
+	path = blocks/exacomp
+	url = https://github.com/gtn/exacomp.git
+[submodule "blocks/todo"]
+	path = blocks/todo
+	url = https://github.com/mudrd8mz/moodle-block_todo.git
+[submodule "course/format/flexsections"]
+	path = course/format/flexsections
+	url = https://github.com/marinaglancy/moodle-format_flexsections.git
+[submodule "course/format/onetopic"]
+	path = course/format/onetopic
+	url = https://github.com/davidherney/moodle-format_onetopic
+[submodule "course/format/tiles"]
+	path = course/format/tiles
+	url = https://bitbucket.org/dw8/moodle-format_tiles.git
+[submodule "mod/choicegroup"]
+	path = mod/choicegroup
+	url = https://github.com/ndunand/moodle-mod_choicegroup.git
+[submodule "mod/offlinequiz"]
+	path = mod/offlinequiz
+	url = https://github.com/academic-moodle-cooperation/moodle-mod_offlinequiz.git
+[submodule "mod/mindmap"]
+	path = mod/mindmap
+	url = https://github.com/t6nis/moodle-mod_mindmap.git
+[submodule "mod/questionnaire"]
+	path = mod/questionnaire
+	url = https://github.com/PoetOS/moodle-mod_questionnaire.git
+[submodule "mod/wooclap"]
+	path = mod/wooclap
+	url = https://github.com/wooclap/moodle-mod_wooclap
+[submodule "report/customsql"]
+	path = report/customsql
+	url = https://github.com/moodleou/moodle-report_customsql
