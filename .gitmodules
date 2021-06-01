@@ -37,3 +37,15 @@
 [submodule "blocks/enhanced_myoverview"]
 	path = blocks/enhanced_myoverview
 	url = https://github.com/call-learning/moodle-block_enhanced_myoverview.git
+[submodule "blocks/thumblinks_action"]
+	path = blocks/thumblinks_action
+	url = https://github.com/call-learning/moodle-block_thumblinks_action.git
+[submodule "blocks/forum_groups"]
+	path = blocks/forum_groups
+	url = https://github.com/call-learning/moodle-block_forum_groups.git
+[submodule "blocks/group_members"]
+	path = blocks/group_members
+	url = https://github.com/call-learning/moodle-block_group_members.git
+[submodule "theme/imtpn_lille"]
+	path = theme/imtpn_lille
+	url = https://github.com/call-learning/moodle-theme_imtpn_lille.git
