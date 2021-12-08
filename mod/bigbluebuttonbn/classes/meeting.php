@@ -331,7 +331,8 @@ class meeting {
         'disablenote' => 'lockSettingsDisableNote',
         'lockedlayout' => 'lockSettingsLockedLayout',
         'lockonjoin' => 'lockSettingsLockOnJoin',
-        'lockonjoinconfigurable' => 'lockSettingsLockOnJoinConfigurable'
+        'lockonjoinconfigurable' => 'lockSettingsLockOnJoinConfigurable',
+        'hideuserlist' => 'lockSettingsHideUserList'
     ];
     /**
      * Helper to prepare data used for create meeting.
