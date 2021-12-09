@@ -832,8 +832,6 @@ class settings {
         $this->add_disablenote_settings($lockingsetting);
         $this->add_hideuserlist_settings($lockingsetting);
         $this->add_lockedlayout_settings($lockingsetting);
-        $this->add_lockonjoin_settings($lockingsetting);
-        $this->add_lockonjoinconfigurable_settings($lockingsetting);
 
         $this->admin->add($this->section, $lockingsetting);
     }
@@ -1065,74 +1063,6 @@ class settings {
             );
             $this->add_conditional_element(
                 'lockedlayout_editable',
-                $item,
-                $lockingsetting
-            );
-        }
-    }
-
-    /**
-     * Helper function renders general settings if the feature is enabled.
-     *
-     * @param admin_settingpage $lockingsetting The parent settingpage to add to
-     */
-    protected function add_lockonjoin_settings(admin_settingpage $lockingsetting): void {
-        // Configuration for BigBlueButton.
-        if ($this->admin->fulltree) {
-            if ((boolean) setting_validator::section_lockonjoin_shown()) {
-                $item = new admin_setting_configcheckbox(
-                    'bigbluebuttonbn_lockonjoin_default',
-                    get_string('config_lockonjoin_default', 'bigbluebuttonbn'),
-                    get_string('config_lockonjoin_default_description', 'bigbluebuttonbn'),
-                    1
-                );
-                $this->add_conditional_element(
-                    'lockonjoin_default',
-                    $item,
-                    $lockingsetting
-                );
-                $item = new admin_setting_configcheckbox(
-                    'bigbluebuttonbn_lockonjoin_editable',
-                    get_string('config_lockonjoin_editable', 'bigbluebuttonbn'),
-                    get_string('config_lockonjoin_editable_description', 'bigbluebuttonbn'),
-                    1
-                );
-                $this->add_conditional_element(
-                    'lockonjoin_editable',
-                    $item,
-                    $lockingsetting
-                );
-            }
-        }
-    }
-
-    /**
-     * Helper function renders general settings if the feature is enabled.
-     *
-     * @param admin_settingpage $lockingsetting The parent settingpage to add to
-     */
-    protected function add_lockonjoinconfigurable_settings(admin_settingpage $lockingsetting): void {
-        // Configuration for BigBlueButton.
-        if ($this->admin->fulltree) {
-            $item = new admin_setting_configcheckbox(
-                'bigbluebuttonbn_lockonjoinconfigurable_default',
-                get_string('config_lockonjoinconfigurable_default', 'bigbluebuttonbn'),
-                get_string('config_lockonjoinconfigurable_default_description', 'bigbluebuttonbn'),
-                0
-            );
-            $this->add_conditional_element(
-                'lockonjoinconfigurable_default',
-                $item,
-                $lockingsetting
-            );
-            $item = new admin_setting_configcheckbox(
-                'bigbluebuttonbn_lockonjoinconfigurable_editable',
-                get_string('config_lockonjoinconfigurable_editable', 'bigbluebuttonbn'),
-                get_string('config_lockonjoinconfigurable_editable_description', 'bigbluebuttonbn'),
-                1
-            );
-            $this->add_conditional_element(
-                'lockonjoinconfigurable_editable',
                 $item,
                 $lockingsetting
             );

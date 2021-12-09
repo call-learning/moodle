@@ -289,16 +289,6 @@ $string['config_lockedlayout_default_description'] = 'If enabled the session lay
 $string['config_lockedlayout_editable'] = 'Locked layout can be edited';
 $string['config_lockedlayout_editable_description'] = 'Locked layout by default can be edited when the instance is added or updated.';
 
-$string['config_lockonjoin_default'] = 'Ignore lock on join enabled by default';
-$string['config_lockonjoin_default_description'] = 'If enabled the lock settings will be ignored. Lock configuration must be enabled for this to apply.';
-$string['config_lockonjoin_editable'] = 'Ignore lock on join can be edited';
-$string['config_lockonjoin_editable_description'] = 'Ignore lock on join by default can be edited when the instance is added or updated.';
-
-$string['config_lockonjoinconfigurable_default'] = 'Lock configuration enabled by default';
-$string['config_lockonjoinconfigurable_default_description'] = 'If enabled the session lock settings can be enabled or disabled from the above control.';
-$string['config_lockonjoinconfigurable_editable'] = 'Lock configuration can be edited';
-$string['config_lockonjoinconfigurable_editable_description'] = 'Lock configuration by default can be edited when the instance is added or updated.';
-
 $string['config_experimental_features'] = 'Configuration for experimental features';
 $string['config_experimental_features_description'] = 'Configuration for experimental features.';
 

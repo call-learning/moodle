@@ -330,8 +330,6 @@ class meeting {
         'disablepublicchat' => 'lockSettingsDisablePublicChat',
         'disablenote' => 'lockSettingsDisableNote',
         'lockedlayout' => 'lockSettingsLockedLayout',
-        'lockonjoin' => 'lockSettingsLockOnJoin',
-        'lockonjoinconfigurable' => 'lockSettingsLockOnJoinConfigurable',
         'hideuserlist' => 'lockSettingsHideUserList'
     ];
     /**

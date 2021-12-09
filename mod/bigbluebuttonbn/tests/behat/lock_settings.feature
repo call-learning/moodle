@@ -37,5 +37,4 @@ Feature: Test that the meeting has the right lock setting.
       | disablepublicchat      | 1     | disablePublicChat : enabled      |
       | disablenote            | 1     | disableNote : enabled            |
       | lockedlayout           | 1     | lockedLayout : enabled           |
-      | lockonjoin             | 1     | lockOnJoin : enabled             |
-      | lockonjoinconfigurable | 1     | lockOnJoinConfigurable : enabled |
+      | hideuserlist           | 1     | hideUserList : enabled           |
