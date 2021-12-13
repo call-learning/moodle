@@ -23,11 +23,11 @@
 
 import * as repository from './repository';
 import {exception as displayException} from 'core/notification';
+import * as Str from 'core/str';
 import {get_strings as getStrings} from 'core/str';
 import {addIconToContainerWithPromise} from 'core/loadingicon';
 import ModalFactory from 'core/modal_factory';
 import ModalEvents from 'core/modal_events';
-import * as Str from 'core/str';
 import Pending from 'core/pending';
 
 const stringList = [
@@ -78,20 +78,18 @@ const getYuiInstance = lang => new Promise(resolve => {
  * Format the supplied date per the specified locale.
  *
  * @param   {string} locale
- * @param   {array} dateList
+ * @param   {number} date
  * @returns {array}
  */
-const formatDates = (locale, dateList) => dateList.map(row => {
-    const date = new Date(row.date);
-    row.date = date.toLocaleDateString(locale, {
+const formatDate = (locale, date) => {
+    const realDate = new Date(date);
+    return realDate.toLocaleDateString(locale, {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric',
     });
-
-    return row;
-});
+};
 
 /**
  * Format response data for the table.
@@ -102,8 +100,7 @@ const formatDates = (locale, dateList) => dateList.map(row => {
 const getFormattedData = response => {
     const recordingData = response.tabledata;
     const rowData = JSON.parse(recordingData.data);
-
-    return formatDates(recordingData.locale, rowData);
+    return rowData;
 };
 
 const getTableNode = tableSelector => document.querySelector(tableSelector);
@@ -360,12 +357,19 @@ const setupDatatable = (tableId, searchFormId, response) => {
     const pendingPromise = new Pending('mod_bigbluebuttonbn/recordings/setupDatatable');
     return Promise.all([getYuiInstance(recordingData.locale), getStringsForYui()])
         .then(([yuiInstance, strings]) => {
+            // Here we use a custom formatter for date.
+            // See https://clarle.github.io/yui3/yui/docs/api/classes/DataTable.BodyView.Formatters.html
+            // Inspired from examples here: https://clarle.github.io/yui3/yui/docs/datatable/
+            // Normally formatter have the prototype: (col) => (cell) => <computed value>, see:
+            // https://clarle.github.io/yui3/yui/docs/api/files/datatable_js_formatters.js.html#l100 .
+            const dateCustomFormatter = () => (cell) => formatDate(recordingData.locale, cell.value);
             // Add the fetched strings to the YUI Instance.
             yuiInstance.Intl.add('datatable-paginator', yuiInstance.config.lang, {...strings});
-
+            yuiInstance.DataTable.BodyView.Formatters.customDate = dateCustomFormatter;
             return yuiInstance;
         })
         .then(yuiInstance => {
+
             const tableData = getFormattedData(response);
             yuiInstance.RecordsPaginatorView = Y.Base.create('my-paginator-view',yuiInstance.DataTable.Paginator.View, [],{
                 _modelChange : function (e) {
