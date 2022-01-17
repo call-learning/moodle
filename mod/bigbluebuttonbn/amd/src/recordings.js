@@ -23,46 +23,39 @@
 
 import * as repository from './repository';
 import {exception as displayException} from 'core/notification';
-import * as Str from 'core/str';
-import {get_strings as getStrings} from 'core/str';
+import {prefetchStrings} from 'core/prefetch';
+import {get_string as getString, get_strings as getStrings} from 'core/str';
 import {addIconToContainerWithPromise} from 'core/loadingicon';
 import ModalFactory from 'core/modal_factory';
 import ModalEvents from 'core/modal_events';
 import Pending from 'core/pending';
 
-const stringList = [
-    'view_recording_yui_first',
-    'view_recording_yui_prev',
-    'view_recording_yui_next',
-    'view_recording_yui_last',
-    'view_recording_yui_page',
-    'view_recording_yui_go',
-    'view_recording_yui_rows',
-    'view_recording_yui_show_all',
-];
+const stringsWithKeys = {
+    first: 'view_recording_yui_first',
+    prev: 'view_recording_yui_prev',
+    next: 'view_recording_yui_next',
+    last: 'view_recording_yui_last',
+    page: 'view_recording_yui_page',
+    go: 'view_recording_yui_go',
+    rows: 'view_recording_yui_rows',
+    all: 'view_recording_yui_all',
+};
+// Load global strings.
+prefetchStrings('bigbluebuttonbn', Object.entries(stringsWithKeys).map((entry) => entry[1]));
 
 const getStringsForYui = () => {
-    const stringMap = stringList.map(key => {
+    const stringMap = Object.keys(stringsWithKeys).map(key => {
         return {
             key,
             component: 'bigbluebuttonbn',
         };
     });
 
+    // Return an object with the matching string keys (we want an object with {<stringkey>: <stringvalue>...}).
     return getStrings(stringMap)
-        .then(([first, prev, next, last, goToLabel, goToAction, perPage, showAll]) => {
-            return {
-                first,
-                prev,
-                next,
-                last,
-                goToLabel,
-                goToAction,
-                perPage,
-                showAll,
-            };
-        })
-        .catch();
+        .then((stringArray) => Object.assign({}, ...Object.keys(stringsWithKeys).map(
+            (key, index) => ({[key]: stringArray[index]})))
+        ).catch();
 };
 
 const getYuiInstance = lang => new Promise(resolve => {
@@ -212,11 +205,11 @@ const getDataTableFunctions = (tableId, searchFormId, dataTable) => {
             // Create the confirmation dialogue.
             return new Promise((resolve) =>
                 ModalFactory.create({
-                    title: Str.get_string('confirm'),
+                    title: getString('confirm'),
                     body: recordingConfirmationMessage(payload),
                     type: ModalFactory.types.SAVE_CANCEL
                 }).then(async(modal) => {
-                    modal.setSaveButtonText(await Str.get_string('ok', 'moodle'));
+                    modal.setSaveButtonText(await getString('ok', 'moodle'));
 
                     // Handle save event.
                     modal.getRoot().on(ModalEvents.save, () => {
@@ -245,12 +238,12 @@ const getDataTableFunctions = (tableId, searchFormId, dataTable) => {
     const recordingConfirmationMessage = async(data) => {
 
         const playbackElement = document.querySelector(`#playbacks-${data.recordingid}`);
-        const recordingType = await Str.get_string(
+        const recordingType = await getString(
             playbackElement.dataset.imported === 'true' ? 'view_recording_link' : 'view_recording',
             'bigbluebuttonbn'
         );
 
-        const confirmation = await Str.get_string(`view_recording_${data.action}_confirmation`, 'bigbluebuttonbn', recordingType);
+        const confirmation = await getString(`view_recording_${data.action}_confirmation`, 'bigbluebuttonbn', recordingType);
 
         if (data.action === 'import') {
             return confirmation;
@@ -262,7 +255,7 @@ const getDataTableFunctions = (tableId, searchFormId, dataTable) => {
             return confirmation;
         }
 
-        const confirmationWarning = await Str.get_string(
+        const confirmationWarning = await getString(
             associatedLinkCount === 1
                 ? `view_recording_${data.action}_confirmation_warning_p`
                 : `view_recording_${data.action}_confirmation_warning_s`,
