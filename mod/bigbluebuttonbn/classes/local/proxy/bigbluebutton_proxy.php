@@ -48,7 +48,7 @@ class bigbluebutton_proxy extends proxy_base {
      * @param string $pw
      * @param string $logouturl
      * @param string|null $configtoken
-     * @param string|null $userid
+     * @param int $userid
      * @param string|null $createtime
      *
      * @return string
@@ -59,7 +59,7 @@ class bigbluebutton_proxy extends proxy_base {
         string $pw,
         string $logouturl,
         string $configtoken = null,
-        string $userid = null,
+        int $userid = 0,
         string $createtime = null
     ): ?string {
         $data = [
@@ -73,8 +73,10 @@ class bigbluebutton_proxy extends proxy_base {
             $data['configToken'] = $configtoken;
         }
 
-        if (!is_null($userid)) {
+        if (!empty($userid)) {
             $data['userID'] = $userid;
+        } else {
+            $data['guest'] = true;
         }
 
         if (!is_null($createtime)) {

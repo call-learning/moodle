@@ -34,17 +34,17 @@
         <span class="status-message">{{statusmessage}}</span>
         <span class="conf-opening-time">
           {{#openingtime}}
-          <span class="conf-opening">
+              <span class="conf-opening">
             {{#str}}mod_form_field_openingtime, bigbluebuttonbn{{/str}}:
-            {{#userdate}} {{.}}, {{#str}} strftimedaydatetime, langconfig {{/str}} {{/userdate}}
+                  {{#userdate}} {{.}}, {{#str}} strftimedaydatetime, langconfig {{/str}} {{/userdate}}
           </span>
           {{/openingtime}}
-          {{#closingtime}}
-          <span class="conf-closing">
+            {{#closingtime}}
+                <span class="conf-closing">
             {{#str}}mod_form_field_closingtime, bigbluebuttonbn{{/str}}:
-            {{#userdate}} {{.}}, {{#str}} strftimedaydatetime, langconfig {{/str}} {{/userdate}}
+                    {{#userdate}} {{.}}, {{#str}} strftimedaydatetime, langconfig {{/str}} {{/userdate}}
           </span>
-          {{/closingtime}}
+            {{/closingtime}}
         </span>
         {{#statusrunning}}
             <div>
@@ -68,12 +68,12 @@
         {{#haspresentations}}
             <h4>{{#str}}view_section_title_presentation, mod_bigbluebuttonbn{{/str}}</h4>
             <div class="list-group list-group-flush">
-              {{#presentations}}
-                <a href="{{url}}" target="_blank" class="list-group-item list-group-item-action">
-                  {{#pix}}{{iconname}},core, {{icondesc}}{{/pix}}
-                  {{name}}
-                </a>
-              {{/presentations}}
+                {{#presentations}}
+                    <a href="{{url}}" target="_blank" class="list-group-item list-group-item-action">
+                        {{#pix}}{{iconname}},core, {{icondesc}}{{/pix}}
+                        {{name}}
+                    </a>
+                {{/presentations}}
             </div>
         {{/haspresentations}}
     </div>

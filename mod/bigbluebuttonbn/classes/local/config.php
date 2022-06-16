@@ -112,6 +112,7 @@ class config {
             'lockonjoin_editable' => false,
             'welcome_default' => '',
             'default_dpa_accepted' => false,
+            'guestaccess_enabled' => false,
         ];
     }
 
@@ -219,6 +220,7 @@ class config {
                'lockonjoin_default' => self::get('lockonjoin_default'),
                'welcome_default' => self::get('welcome_default'),
                'welcome_editable' => self::get('welcome_editable'),
+               'guestaccess_enabled' => self::get('guestaccess_enabled'),
         ];
     }
 

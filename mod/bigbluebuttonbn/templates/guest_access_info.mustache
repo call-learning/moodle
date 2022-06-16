@@ -1,0 +1,66 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_bigbluebuttonbn/guest_access_info
+
+    This template show the guest access information.
+
+    Example context (json):
+    {
+        "guestjoinurl" : "http://moodle.org/",
+        "guestpassword": "password"
+    }
+}}
+<div id="bbb-guest-access-info" class="box generalbox boxaligncenter">
+    <div class="d-flex bigbluebuttonbn_cp_info py-1">
+        <div class="flex-grow-0 d-flex">
+            <label for="guestuid-url-i"></label>
+            <input id="guestuid-url-i" type="text" value="{{guestjoinurl}}" size="50" class="form-control"/>
+        </div>
+        <div class="flex-grow-1 px-1 d-flex">
+            <button class="btn btn-secondary bigbluebuttonbn_icon_btn bigbluebuttonbn_cp_info_btn mx-1">
+                {{#pix}}t/copy, core, {{#str}}permalink:copy, mod_bigbluebuttonbn{{/str}}{{/pix}}
+            </button>
+            <a href="{{guestjoinurl}}" class="btn btn-primary bigbluebuttonbn_icon_btn" target="_blank" data-action="follow-guest-link">{{#pix}}
+                fp/link_sm, theme, {{#str}}permalink:follow, mod_bigbluebuttonbn{{/str}}{{/pix}}</a>
+        </div>
+    </div>
+    <div class="d-flex bigbluebuttonbn_cp_info  py-1">
+        <div class="flex-grow-0 d-flex">
+            <label for="guest-pw-i"></label>
+            <input id="guest-pw-i" type="text" value="{{guestpassword}}" size="50" class="form-control">
+        </div>
+        <div class="flex-grow-1 px-1">
+            <button class="btn btn-secondary bigbluebuttonbn_icon_btn bigbluebuttonbn_cp_info_btn">
+                {{#pix}}t/copy, core, {{#str}}copy, mod_bigbluebuttonbn{{/str}}{{/pix}}
+            </button>
+        </div>
+
+    </div>
+    {{#js}}
+        (()=> {
+            document.querySelectorAll(".bigbluebuttonbn_cp_info_btn").forEach((element) => {
+                element.addEventListener("click", (event) => {
+                const input = event.target.closest('.bigbluebuttonbn_cp_info').querySelector('input');
+                input.select();
+                document.execCommand("copy");
+                    event.stopPropagation();
+                });
+            });
+        })();
+    {{/js}}
+</div>

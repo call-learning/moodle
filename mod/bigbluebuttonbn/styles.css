@@ -34,3 +34,7 @@
 .bbb_index_form {
     display: inline-block;
 }
+
+.bigbluebuttonbn_icon_btn i.icon {
+    margin-right: auto;
+}

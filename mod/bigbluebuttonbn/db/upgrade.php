@@ -438,6 +438,49 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         upgrade_mod_savepoint(true, 2022050600, 'bigbluebuttonbn');
     }
 
+    if ($oldversion < 2022061603) {
+        $table = new xmldb_table('bigbluebuttonbn');
+
+        $field = new xmldb_field('guestallowed', XMLDB_TYPE_INTEGER, '2', null, null, null, '0', 'completionengagementemojis');
+        // Conditionally launch add field guestallowed.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $field = new xmldb_field('mustapproveuser', XMLDB_TYPE_INTEGER, '2', null, null, null, '1', 'guestallowed');
+        // Conditionally launch add field mustapproveuser.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $field = new xmldb_field('guestlinkuid', XMLDB_TYPE_CHAR, '1024', null, null, null, null, 'mustapproveuser');
+        // Conditionally launch add field guestlinkuid.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        $field = new xmldb_field('guestpassword', XMLDB_TYPE_CHAR, '255', null, null, null, null, 'guestlinkuid');
+        // Conditionally launch add field guestpassword.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+        upgrade_mod_savepoint(true, 2022061603, 'bigbluebuttonbn');
+    }
+
+    if ($oldversion < 2022061604) {
+
+        // Rename field mustapproveuser on table bigbluebuttonbn to NEWNAMEGOESHERE.
+        $table = new xmldb_table('bigbluebuttonbn');
+        $field = new xmldb_field('mustapproveguest', XMLDB_TYPE_INTEGER, '2', null, null, null, '1', 'guestallowed');
+
+        if (!$dbman->field_exists($table, $field)) {
+            // Launch rename field mustapproveuser.
+            $dbman->rename_field($table, $field, 'mustapproveguest');
+        }
+
+        // Bigbluebuttonbn savepoint reached.
+        upgrade_mod_savepoint(true, 2022061604, 'bigbluebuttonbn');
+    }
     return true;
 }
 

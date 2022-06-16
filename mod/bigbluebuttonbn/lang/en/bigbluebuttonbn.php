@@ -48,7 +48,8 @@ $string['bigbluebuttondisablednotification_subject'] = 'BigBlueButton activity m
 $string['bigbluebuttondisablednotification'] = 'The BigBlueButton activity module has been disabled and any existing BigBlueButton course activities are currently not accessible. Prior to re-enabling this plugin, please ensure that you have read and accepted the <a href="{$a}" target="_blank">data processing agreement</a> with Blindside Networks Inc.';
 $string['cannotperformaction'] = 'Cannot perform action {$a} on this recording';
 $string['enablingbigbluebutton'] = 'Enabling BigBlueButton activity';
-$string['enablingbigbluebuttondpainfo'] = 'In order to meet your data protection obligations, before enabling this plugin, you must confirm that you have read and accepted the <a href="{$a}" target="_blank">Blindside Networks data processing agreement</a>. Please consult with your own privacy professionals for advice.';
+$string['enablingbigbluebuttondpainfo'] = 'In order to meet your data protection obligations, prior to enabling this plugin, you may need to ensure that you have read and accepted the <a href="{$a}" target="_blank">data processing agreement</a> with Blindside Networks Inc.<br/>
+Please consult with your own privacy professionals for advice.';
 $string['indicator:cognitivedepth'] = 'BigBlueButton cognitive';
 $string['indicator:cognitivedepth_help'] = 'This indicator is based on the cognitive depth reached by the student in a BigBlueButton activity.';
 $string['indicator:socialbreadth'] = 'BigBlueButton social';
@@ -130,6 +131,10 @@ $string['minute'] = 'minute';
 $string['minutes'] = 'minutes';
 
 $string['config_dpa_note'] = 'Note: In order to meet your data protection obligations, before using a service provider for this plugin, you must ensure that you have read and accepted the service provider\'s data processing agreement. For the default free BigBlueButton service, this is the <a href="{$a}" target="_blank">Blindside Networks data processing agreement</a>. Please consult with your own privacy professionals for advice.';
+
+$string['config_guestaccess_enabled'] = 'Create guest access link for external guests.';
+$string['config_guestaccess_enabled_description'] = 'You can use the guest access link to invite external guests who do not have a Moodle account to this conference room.';
+
 $string['config_general'] = 'General settings';
 $string['config_general_description'] = 'These settings are always used.';
 $string['config_server_url'] = 'BigBlueButton server URL';
@@ -301,6 +306,14 @@ $string['general_error_not_allowed_to_create_instances'] = 'User is not allowed 
 $string['general_error_not_found'] = 'Entity not found : {$a}.';
 $string['general_error_cannot_create_meeting'] = 'Cannot create session.';
 $string['general_error_cannot_get_recordings'] = 'Cannot get recordings.';
+$string['guestaccess_username'] = 'Username to join the meeting as a guest';
+$string['guestaccess_password'] = 'Password to join the meeting as a guest';
+$string['guestaccess_meeting_not_started'] = 'Sorry, the meeting has not yet started, please try again later.';
+$string['guestaccess_meeting_invalid_password'] = 'Guest access: invalid password.';
+$string['guestaccess_activitynotfound'] = 'Guest access: activity not found.';
+$string['guestaccess_should_not_be_loggedin'] = 'Guest access: you should not be logged into Moodle.';
+$string['guestaccess_feature_disabled'] = 'Guest access: feature is disabled.';
+$string['guestaccess_title']  = 'Guest access information';
 $string['index_confirm_end'] = 'Do you want to end the session?';
 $string['index_disabled'] = 'disabled';
 $string['index_enabled'] = 'enabled';
@@ -318,6 +331,7 @@ $string['index_heading_viewer'] = 'Viewers';
 $string['index_heading'] = 'BigBlueButton rooms';
 $string['instanceprofilewithoutrecordings'] = 'This instance profile cannot display recordings';
 $string['mod_form_block_general'] = 'General';
+$string['mod_form_block_guestaccess'] = 'Guest access';
 $string['mod_form_block_room'] = 'Room settings';
 $string['mod_form_block_recordings'] = 'Recording view';
 $string['mod_form_block_presentation'] = 'Presentation content';
@@ -331,6 +345,8 @@ $string['mod_form_field_intro'] = 'Description';
 $string['mod_form_field_intro_help'] = 'A short description of the room.';
 $string['mod_form_field_duration_help'] = 'Setting the duration for a meeting will establish the maximum time for a meeting to keep alive before the recording finish';
 $string['mod_form_field_duration'] = 'Duration';
+$string['mod_form_field_guestallowed'] = 'Guest allowed in meeting';
+$string['mod_form_field_mustapproveuser'] = 'User must be approved by moderators';
 $string['mod_form_field_userlimit'] = 'User limit';
 $string['mod_form_field_userlimit_help'] = 'The maximum number of users allowed in a session. Set to 0 to allow an unlimited number of users.';
 $string['mod_form_field_name'] = 'Room name';
@@ -375,6 +391,8 @@ $string['mod_form_field_disablenote'] = 'Disable shared notes';
 $string['mod_form_field_hideuserlist'] = 'Hide user list';
 $string['mod_form_field_lockonjoin'] = 'Lock settings on join';
 $string['mod_form_locksettings'] = 'Lock settings';
+$string['permalink:copy'] = 'Copy guest link';
+$string['permalink:follow'] = 'Follow guest link';
 $string['report_join_info']  = 'Has joined the room {$a} time(s)';
 $string['report_play_recording_info']  = 'Has played a recording {$a} time(s)';
 $string['report_room_view']  = 'Has viewed the room';
