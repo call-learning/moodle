@@ -172,18 +172,15 @@ const applyInstanceTypeProfile = (profileType, isFeatureEnabled) => {
  * Init the participant list
  */
 const participantListInit = () => {
-    const participantData = JSON.parse(ELEMENT_SELECTOR.participantData().dataset.participantData);
     const participantList = getParticipantList();
     participantList.forEach(participant => {
         const selectionTypeValue = participant.selectiontype;
         const selectionValue = participant.selectionid;
         const selectionRole = participant.role;
-        if (participant.selectiontype === 'all' ||
-            typeof participantData[participant.selectiontype].children[participant.selectionid] !== 'undefined') {
-            // Add it to the form, but don't add the delete button if it is the first item.
-            participantAddToForm(selectionTypeValue, selectionValue, selectionRole, true).then();
-        }
+        // Add it to the form, but don't add the delete button if it is the first item.
+        participantAddToForm(selectionTypeValue, selectionValue, selectionRole, true);
     });
+    participantListUpdate(participantList);
 };
 
 /**
@@ -249,13 +246,23 @@ const participantListUpdate = (list) => {
 };
 
 /**
+ * Get participant list and filter out values that are not valid.
  *
  * @returns {any}
  */
 const getParticipantList = () => {
     const participantListValue = ELEMENT_SELECTOR.participantList().value;
     if (participantListValue) {
-        return JSON.parse(participantListValue);
+        const participantData = JSON.parse(ELEMENT_SELECTOR.participantData().dataset.participantData);
+        const participantList = JSON.parse(participantListValue);
+        if (Array.isArray(participantList)) {
+            return participantList.filter(
+                (participant) => {
+                    return (participant.selectiontype === 'all' ||
+                        typeof participantData[participant.selectiontype].children[participant.selectionid] !== 'undefined');
+                }
+            );
+        }
     }
     return [];
 };
