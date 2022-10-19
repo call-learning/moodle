@@ -635,7 +635,7 @@ class mod_bigbluebuttonbn_mod_form extends moodleform_mod {
         $mform->setType('guestallowed', PARAM_BOOL);
         $mform->setType('mustapproveuser', PARAM_BOOL);
         $mform->setDefault('guestallowed', 0);
-        $mform->setDefault('mustapproveuser', 0);
+        $mform->setDefault('mustapproveuser', 1);
     }
 
     /**
