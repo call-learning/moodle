@@ -127,7 +127,7 @@ function bigbluebuttonbn_update_instance($bigbluebuttonbn) {
     $bigbluebuttonbn->id = $bigbluebuttonbn->instance;
     $bigbluebuttonbn->presentation = files::save_media_file($bigbluebuttonbn);
 
-    if (empty($bigbluebuttonbn->guestlinkuid) || empty($bigbluebuttonbn->guestpassword)) {
+    if (empty($bigbluebuttonbn->guestjoinurl) || empty($bigbluebuttonbn->guestpassword)) {
         [$bigbluebuttonbn->guestlinkuid, $bigbluebuttonbn->guestpassword] =
             \mod_bigbluebuttonbn\plugin::generate_guest_meeting_credentials();
     }

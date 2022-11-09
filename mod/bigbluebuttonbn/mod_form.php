@@ -620,9 +620,7 @@ class mod_bigbluebuttonbn_mod_form extends moodleform_mod {
             $mform->hideIf('mustapproveuser', 'guestallowed');
             if (!empty($this->_cm)) {
                 $instance = instance::get_from_cmid($this->_cm->id);
-                \mod_bigbluebuttonbn\form\guest_add::add_meeting_links_elements($mform,
-                        $instance->get_guest_access_url(),
-                        $instance->get_guest_access_password());
+                \mod_bigbluebuttonbn\form\guest_add::add_meeting_links_elements($mform);
                 $mform->setDefault('guestjoinurl', $instance->get_guest_access_url());
                 $mform->setDefault('guestpassword', $instance->get_guest_access_password());
                 $mform->hideIf('guestjoinurl', 'guestallowed');
