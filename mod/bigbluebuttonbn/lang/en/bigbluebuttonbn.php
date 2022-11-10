@@ -306,10 +306,11 @@ $string['general_error_not_found'] = 'Cannot find the BigBlueButton activity ({$
 $string['general_error_cannot_create_meeting'] = 'Cannot create session.';
 $string['general_error_cannot_get_recordings'] = 'Cannot get recordings.';
 $string['guestaccess_add'] = 'Add guests';
+$string['guestaccess_add_no_id'] = 'No bigbluebutton instance ID provided.';
 $string['guestaccess_emails'] = 'Add guests emails';
 $string['guestaccess_emails_help'] = 'Emails of users you want to invite, separated by commas';
-$string['guestaccess_emails_existinguser'] = 'The email {$a} belongs to a user who is already registered in this site.
-Logged in users cannot join as guests!';
+$string['guestaccess_emails_existinguser'] = 'The email {$a} belongs to a user who is already registered in this site and cannot
+join as a guest!';
 $string['guestaccess_emails_invalidemail'] = 'The email {$a} is invalid, please correct it.';
 $string['guestaccess_username'] = 'Guest username';
 $string['guestaccess_meeting_link'] = 'Meeting link';
