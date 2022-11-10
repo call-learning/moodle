@@ -35,13 +35,7 @@ global $PAGE, $OUTPUT, $DB, $SITE;
 require_course_login($SITE);
 $uid = required_param('uid', PARAM_ALPHANUMEXT);
 
-// Same if we are logged in, then we should not really have guest access. This will be confusing.
-if (isloggedin() && !isguestuser()) {
-    throw new moodle_exception('guestaccess_should_not_be_loggedin', 'mod_bigbluebuttonbn');
-}
-
 $bbid = $DB->get_field('bigbluebuttonbn', 'id', ['guestlinkuid' => trim($uid)]);
-
 if (empty($bbid)) {
     throw new moodle_exception('guestaccess_activitynotfound', 'mod_bigbluebuttonbn');
 }
@@ -50,7 +44,12 @@ $instance = \mod_bigbluebuttonbn\instance::get_from_instanceid($bbid);
 if (!$instance->is_guest_allowed()) {
     throw new moodle_exception('guestaccess_feature_disabled', 'mod_bigbluebuttonbn');
 }
-
+// Same if we are logged in, then we should not really have guest access. This will be confusing.
+if (isloggedin() && !isguestuser()) {
+    // We then redirect to the right page.
+    \core\notification::warning(get_string('guestaccess_should_not_be_loggedin', 'mod_bigbluebuttonbn'));
+    redirect(new moodle_url('/mod/bigbluebuttonbn/view.php', ['id' => $instance->get_cm_id()]));
+}
 // Get the guest matching guest access link.
 $PAGE->set_url('/mod/bigbluebuttonbn/guest.php', ['uid' => $uid]);
 $PAGE->set_title(get_string('modulename', plugin::COMPONENT));

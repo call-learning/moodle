@@ -320,8 +320,8 @@ $string['guestaccess_meeting_invalid_password'] = 'Sorry, the password you enter
  Please contact the moderator for more information.';
 $string['guestaccess_activitynotfound'] = 'The BigblueButton activity is not found for this access as guest. Contact your
 support.';
-$string['guestaccess_should_not_be_loggedin'] = 'The guest access feature is only enabled for users that are not registered into
-your site. To this this page you should be logged out.';
+$string['guestaccess_should_not_be_loggedin'] = 'The guest access page is only available for users who are not registered into
+this site. You have been automatically redirected.';
 $string['guestaccess_feature_disabled'] = 'Guest access: feature is disabled.';
 $string['guestaccess_title']  = 'Add guests to this meeting';
 $string['guestaccess_copy_link'] = 'Copy link';
