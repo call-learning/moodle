@@ -302,13 +302,12 @@ class meeting {
             }
         }
         $meetinginfo->guestaccessenabled = $instance->is_guest_allowed();
-        if ($meetinginfo->guestaccessenabled) {
+        if ($meetinginfo->guestaccessenabled && $instance->is_moderator()) {
             $meetinginfo->guestjoinurl = $instance->get_guest_access_url()->out();
             $meetinginfo->guestpassword = $instance->get_guest_access_password();
         }
 
         $meetinginfo->features = $instance->get_enabled_features();
-
         return $meetinginfo;
     }
 
