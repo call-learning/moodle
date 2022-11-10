@@ -42,10 +42,10 @@ class text_with_copy_element extends MoodleQuickForm_text {
      */
     public function accept(&$renderer, $required = false, $error = null) {
         global $OUTPUT;
-
+        $elementname = $this->getName();
         // Make sure the element has an id.
         $this->_generateId();
-        $advanced = isset($renderer->_advancedElements[$this->getName()]);
+        $advanced = isset($renderer->_advancedElements[$elementname]);
         $elementcontext = $this->export_for_template($OUTPUT);
 
         $helpbutton = '';
@@ -64,21 +64,6 @@ class text_with_copy_element extends MoodleQuickForm_text {
             }
         }
 
-        // Generate the form element wrapper ids and names to pass to the template.
-        // This differs between group and non-group elements.
-        if ($this->getType() === 'group') {
-            // Group element.
-            // The id will be something like 'fgroup_id_NAME'. E.g. fgroup_id_mygroup.
-            $elementcontext['wrapperid'] = $elementcontext['id'];
-
-            // Ensure group elements pass through the group name as the element name.
-            $elementcontext['name'] = $elementcontext['groupname'];
-        } else {
-            // Non grouped element.
-            // Creates an id like 'fitem_id_NAME'. E.g. fitem_id_mytextelement.
-            $elementcontext['wrapperid'] = 'fitem_' . $elementcontext['id'];
-        }
-
         $context = array(
                 'element' => $elementcontext,
                 'label' => $label,
@@ -95,11 +80,11 @@ class text_with_copy_element extends MoodleQuickForm_text {
         }
         if (($renderer->_inGroup) && !empty($renderer->_groupElementTemplate)) {
             $renderer->_groupElementTemplate = $html;
-        } else if (!isset($renderer->_templates[$this->getName()])) {
-            $renderer->_templates[$this->getName()] = $html;
+        } else if (!isset($renderer->_templates[$elementname])) {
+            $renderer->_templates[$elementname] = $html;
         }
 
-        if (in_array($this->getName(), $renderer->_stopFieldsetElements) && $renderer->_fieldsetsOpen > 0) {
+        if (in_array($elementname, $renderer->_stopFieldsetElements) && $renderer->_fieldsetsOpen > 0) {
             $renderer->_html .= $renderer->_closeFieldsetTemplate;
             $renderer->_fieldsetsOpen--;
         }
@@ -107,4 +92,3 @@ class text_with_copy_element extends MoodleQuickForm_text {
     }
 
 }
-
