@@ -49,7 +49,7 @@ class send_guest_emails extends send_notification {
 
                 email_to_user(
                         $user,
-                        core_user::get_user($customdata->useridfrom),
+                        core_user::get_noreply_user(),
                         $this->get_subject(),
                         $this->get_small_message(),
                         $this->get_html_message()
