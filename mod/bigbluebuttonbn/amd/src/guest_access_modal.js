@@ -23,7 +23,9 @@
 import {get_string as getString} from 'core/str';
 import ModalForm from 'core_form/modalform';
 import {add as toastAdd, addToastRegion} from 'core/toast';
-
+import {
+    exception as displayException,
+} from 'core/notification';
 const selectors = {
     showGuestAccessButton: '[data-action="show-guest-access"]',
 };
@@ -52,7 +54,8 @@ export const init = (guestInfo) => {
     showGuestAccessButton.addEventListener('click', event => {
         modalForm.show().then(() => {
             addToastRegion(modalForm.modal.getRoot()[0]);
-        });
+            return true;
+        }).catch(displayException);
         modalForm.addEventListener(modalForm.events.FORM_SUBMITTED, (e) => {
             // Remove toast region as if not it will be displayed on the closed modal.
             const modalElement = modalForm.modal.getRoot()[0];
