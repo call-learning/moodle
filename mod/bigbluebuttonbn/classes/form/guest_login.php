@@ -47,7 +47,7 @@ class guest_login extends \moodleform {
         $mform->addElement('hidden', 'uid', $this->_customdata['uid']);
         $mform->setType('uid', PARAM_ALPHANUMEXT);
 
-        $this->add_action_buttons(false, get_string('submit'));
+        $this->add_action_buttons(false, get_string('guestaccess_join_meeting', 'mod_bigbluebuttonbn'));
     }
 
     /**

@@ -44,10 +44,10 @@ Feature: Test the ability to run the full meeting lifecycle (start to end) for g
     Then I log out
     And I close all opened windows
     Then I am on the "Room recordings" "mod_bigbluebuttonbn > BigblueButtonBN Guest" page
-    Then I should see "Username to join the meeting"
-    And I should see "Password to join the meeting as a guest"
+    Then I should see "Guest username"
+    And I should see "Password"
     And I set the field "username" to "Test Guest User"
-    And I click on "Submit" "button"
+    And I click on "Join meeting" "button"
     Then I should see "Test Guest User"
     And I click on "Leave Meeting" "link"
-    Then I should see "C1: Test course 1"
+    Then I should see "C1: Room recordings"

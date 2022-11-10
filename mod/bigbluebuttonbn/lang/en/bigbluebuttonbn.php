@@ -311,11 +311,11 @@ $string['guestaccess_emails_help'] = 'Emails of users you want to invite, separa
 $string['guestaccess_emails_existinguser'] = 'The email {$a} belongs to a user who is already registered in this site.
 Logged in users cannot join as guests!';
 $string['guestaccess_emails_invalidemail'] = 'The email {$a} is invalid, please correct it.';
-$string['guestaccess_username'] = 'Username to join the meeting as a guest';
+$string['guestaccess_username'] = 'Guest username';
 $string['guestaccess_meeting_link'] = 'Meeting link';
 $string['guestaccess_meeting_password'] = 'Meeting password';
-$string['guestaccess_password'] = 'Password to join the meeting as a guest';
-$string['guestaccess_meeting_not_started'] = 'Sorry, the meeting has not yet started, please try again later.';
+$string['guestaccess_password'] = 'Password';
+$string['guestaccess_meeting_not_started'] = 'Sorry, the meeting has not started yet. Please try again later.';
 $string['guestaccess_meeting_invalid_password'] = 'Sorry, the password you entered is not the right password.
  Please contact the moderator for more information.';
 $string['guestaccess_activitynotfound'] = 'The BigblueButton activity is not found for this access as guest. Contact your
@@ -328,6 +328,7 @@ $string['guestaccess_copy_link'] = 'Copy link';
 $string['guestaccess_copy_password'] = 'Copy password';
 $string['guestaccess_invite_success'] = 'An invitation will be sent to guest(s) {$a->emails} via email.';
 $string['guestaccess_invite_failure'] = 'Error {$a->errors} when inviting guests {$a->emails}, please contact your support.';
+$string['guestaccess_join_meeting'] = 'Join meeting';
 $string['guest_invitation_subject'] = 'You have been invited to the session {$a->name} on {$a->course_fullname} !';
 $string['guest_invitation_small_message'] = 'Hi,
 
@@ -375,7 +376,7 @@ $string['mod_form_field_intro'] = 'Description';
 $string['mod_form_field_intro_help'] = 'A short description of the room.';
 $string['mod_form_field_duration_help'] = 'Setting the duration for a meeting will establish the maximum time for a meeting to keep alive before the recording finish';
 $string['mod_form_field_duration'] = 'Duration';
-$string['mod_form_field_guestallowed'] = 'Guest allowed in meeting';
+$string['mod_form_field_guestallowed'] = 'Allow guest access in the meeting';
 $string['mod_form_field_mustapproveuser'] = 'User must be approved by moderators';
 $string['mod_form_field_userlimit'] = 'User limit';
 $string['mod_form_field_userlimit_help'] = 'The maximum number of users allowed in a session. Set to 0 to allow an unlimited number of users.';
