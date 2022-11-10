@@ -22,7 +22,7 @@
  */
 import {get_string as getString} from 'core/str';
 import ModalForm from 'core_form/modalform';
-import {add as toastAdd} from "core/toast";
+import {add as toastAdd, addToastRegion} from 'core/toast';
 
 const selectors = {
     showGuestAccessButton: '[data-action="show-guest-access"]',
@@ -49,17 +49,20 @@ export const init = (guestInfo) => {
         saveButtonText: getString('ok', 'core_moodle'),
         formClass: 'mod_bigbluebuttonbn\\form\\guest_add',
     });
-
     showGuestAccessButton.addEventListener('click', event => {
-        modalForm.show();
+        modalForm.show().then(() => {
+            addToastRegion(modalForm.modal.getRoot()[0]);
+        });
         modalForm.addEventListener(modalForm.events.FORM_SUBMITTED, (e) => {
+            // Remove toast region as if not it will be displayed on the closed modal.
+            const modalElement = modalForm.modal.getRoot()[0];
+            const regions = modalElement.querySelectorAll('.toast-wrapper');
+            regions.forEach((reg) => reg.remove());
             if (e.detail.result) {
                 if (e.detail.emailcount > 0) {
                     toastAdd(getString('guestaccess_invite_success', 'mod_bigbluebuttonbn', e.detail),
                         {
                             type: 'success',
-                            autohide: true,
-                            closeButton: true
                         }
                     );
                 }
@@ -67,8 +70,6 @@ export const init = (guestInfo) => {
                 toastAdd(getString('guestaccess_invite_failure', 'mod_bigbluebuttonbn', e.detail),
                     {
                         type: 'warning',
-                        autohide: true,
-                        closeButton: true
                     }
                 );
             }
