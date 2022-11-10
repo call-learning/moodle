@@ -52,8 +52,9 @@ if (isloggedin() && !isguestuser()) {
 }
 // Get the guest matching guest access link.
 $PAGE->set_url('/mod/bigbluebuttonbn/guest.php', ['uid' => $uid]);
-$PAGE->set_title(get_string('modulename', plugin::COMPONENT));
-$PAGE->set_heading(course_format_name($instance->get_course()));
+$title = $instance->get_course()->shortname . ': ' . format_string($instance->get_meeting_name());
+$PAGE->set_title($title);
+$PAGE->set_heading($title);
 $PAGE->set_pagelayout('standard');
 $form = new guest_login(null, ['uid' => $uid, 'instance' => $instance]);
 // Specific for the tests: we allow to set the password in the form here.
@@ -63,16 +64,10 @@ if (defined('BEHAT_SITE_RUNNING')) {
 
 if ($data = $form->get_data()) {
     $username = $data->username;
-    $password = trim($data->password);
-    require_sesskey();
-    // Double check here that right password has been submitted.
-    if ($data->password != $instance->get_guest_access_password()) {
-        throw new moodle_exception('guestaccess_invalid_password', 'mod_bigbluebuttonbn');
-    }
     try {
         $meeting = new meeting($instance);
         // As the meeting doesn't exist, we raise an exception.
-        if (!empty($meeting->get_meeting_info(true)->createtime)) {
+        if (!empty($meeting->get_meeting_info()->createtime)) {
             $url = $meeting->get_guest_join_url($username);
             redirect($url);
         } else {

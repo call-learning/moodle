@@ -317,8 +317,7 @@ $string['guestaccess_meeting_link'] = 'Meeting link';
 $string['guestaccess_meeting_password'] = 'Meeting password';
 $string['guestaccess_password'] = 'Password';
 $string['guestaccess_meeting_not_started'] = 'Sorry, the meeting has not started yet. Please try again later.';
-$string['guestaccess_meeting_invalid_password'] = 'Sorry, the password you entered is not the right password.
- Please contact the moderator for more information.';
+$string['guestaccess_meeting_invalid_password'] = 'Incorrect password.';
 $string['guestaccess_activitynotfound'] = 'The BigblueButton activity is not found for this access as guest. Contact your
 support.';
 $string['guestaccess_should_not_be_loggedin'] = 'The guest access page is only available for users who are not registered into
