@@ -52,7 +52,7 @@ class backup_bigbluebuttonbn_activity_structure_step extends backup_activity_str
             'clienttype', 'muteonstart', 'completionattendance',
             'completionengagementchats', 'completionengagementtalks', 'completionengagementraisehand',
             'completionengagementpollvotes', 'completionengagementemojis',
-            'guestallowed', 'mustapproveuser', 'guestlinkuid', 'guestpassword']);
+            'guestallowed', 'mustapproveuser']);
 
         $logs = new backup_nested_element('logs');
 
