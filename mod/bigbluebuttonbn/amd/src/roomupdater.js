@@ -46,7 +46,7 @@ export const start = (interval) => {
     resetValues();
     timerRunning = true;
     pollInterval = interval;
-    poll();
+    timerReference = setTimeout(() => poll(), pollInterval * pollIntervalFactor);
 };
 
 /**
