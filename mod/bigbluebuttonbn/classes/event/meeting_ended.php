@@ -32,7 +32,7 @@ class meeting_ended extends base {
      */
     protected function init($crud = 'r', $edulevel = self::LEVEL_OTHER) {
         parent::init($crud, $edulevel);
-        $this->description = "A bigbluebutton meeting for the bigbluebuttonbn activity with id " .
+        $this->description = "A BigBlueButtonmeeting for the BigBlueButtonBN activity with id " .
             "'##objectid' for the course id '##courseid' has been forcibly " .
             "ended by the user with id '##userid'.";
     }

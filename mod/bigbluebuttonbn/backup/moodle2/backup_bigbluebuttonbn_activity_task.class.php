@@ -67,11 +67,11 @@ class backup_bigbluebuttonbn_activity_task extends backup_activity_task {
 
         $base = preg_quote($CFG->wwwroot.'/mod/bigbluebuttonbn', '#');
 
-        // Link to the list of bigbluebuttonbns.
+        // Link to the list of BigBlueButtonBNs.
         $pattern = '#('.$base."\/index.php\?id\=)([0-9]+)#";
         $content = preg_replace($pattern, '$@BIGBLUEBUTTONBNINDEX*$2@$', $content);
 
-        // Link to bigbluebuttonbn view by moduleid.
+        // Link to BigBlueButtonBN view by moduleid.
         $pattern = '#('.$base."\/view.php\?id\=)([0-9]+)#";
         $content = preg_replace($pattern, '$@BIGBLUEBUTTONBNVIEWBYID*$2@$', $content);
 

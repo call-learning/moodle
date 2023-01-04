@@ -1,6 +1,6 @@
 @mod @mod_bigbluebuttonbn @javascript
-Feature: I can edit a bigbluebutton instance
-   As a user I can edit a BigbluebuttonBN instance
+Feature: I can edit a BigBlueButton instance
+   As a user I can edit a BigBlueButtonBN instance
 
   Background:  Make sure that a course is created
     Given a BigBlueButton mock server is configured

@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * Tests for the Big Blue Button Instance.
+ * Tests for the BigBlueButton Instance.
  *
  * @package   mod_bigbluebuttonbn
  * @copyright 2021 Andrew Lyons <andrew@nicols.co.uk>
@@ -27,7 +27,7 @@ use advanced_testcase;
 use moodle_exception;
 
 /**
- * Tests for the Big Blue Button Instance.
+ * Tests for the BigBlueButton Instance.
  *
  * @package   mod_bigbluebuttonbn
  * @copyright 2021 Andrew Lyons <andrew@nicols.co.uk>

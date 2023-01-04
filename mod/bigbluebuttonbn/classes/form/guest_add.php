@@ -117,7 +117,7 @@ class guest_add extends dynamic_form {
     }
 
     /**
-     * Get BigblueButton instance from context params
+     * Get BigBlueButton instance from context params
      *
      * @return instance
      * @throws moodle_exception

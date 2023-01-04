@@ -1,5 +1,5 @@
 @mod @mod_bigbluebuttonbn @javascript
-Feature: bigbluebuttonbn instance
+Feature: BigBlueButton instance
   In order to create a room activity with recordings
   As a user
   I need to add three room activities to an existent course

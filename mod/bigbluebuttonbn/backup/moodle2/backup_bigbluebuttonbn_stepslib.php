@@ -33,7 +33,7 @@
  */
 class backup_bigbluebuttonbn_activity_structure_step extends backup_activity_structure_step {
     /**
-     * Define the complete bigbluebuttonbn structure for backup, with file and id annotations.
+     * Define the complete BigBlueButtonBN structure for backup, with file and id annotations.
      *
      * @return object
      */

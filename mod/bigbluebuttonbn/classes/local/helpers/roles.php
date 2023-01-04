@@ -41,10 +41,10 @@ use stdClass;
  */
 class roles {
 
-    /** @var int The bigbluebutton viewer role */
+    /** @var int The BigBlueButton viewer role */
     public const ROLE_VIEWER = 'viewer';
 
-    /** @var string The bigbluebutton moderator role */
+    /** @var string The BigBlueButton moderator role */
     public const ROLE_MODERATOR = 'moderator';
 
     /**

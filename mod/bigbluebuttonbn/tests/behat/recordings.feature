@@ -1,6 +1,6 @@
 @mod @mod_bigbluebuttonbn
 Feature: The recording can be managed through the room page
-  As a user I am able to see the relevant recording for a given bigbluebutton activity and modify its parameters
+  As a user I am able to see the relevant recording for a given BigBlueButton activity and modify its parameters
 
   Background:  Make sure that import recording is enabled and course, activities and recording exists
     Given a BigBlueButton mock server is configured

@@ -132,7 +132,7 @@ class files {
      *
      * @param context $context
      * @param string $presentation matching presentation file name
-     * @param int $id bigbluebutton instance id
+     * @param int $id BigBlueButton instance id
      * @param bool $withnonce add nonce to the url
      * @return array|null the representation of the presentation as an associative array
      */

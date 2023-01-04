@@ -69,7 +69,7 @@ trait testcase_helper_trait {
     /**
      * Get the matching form data
      *
-     * @param stdClass $bbactivity the current bigbluebutton activity
+     * @param stdClass $bbactivity the current BigBlueButtonBN activity
      * @param stdClass|null $course the course or null (taken from $this->get_course() if null)
      * @return mixed
      */

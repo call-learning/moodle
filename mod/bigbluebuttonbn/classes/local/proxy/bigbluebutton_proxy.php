@@ -28,7 +28,7 @@ use moodle_url;
 use stdClass;
 
 /**
- * The bigbluebutton proxy class.
+ * The BigBlueButton proxy class.
  *
  * This class acts as a proxy between Moodle and the BigBlueButton API server,
  * and handles all requests relating to the server and meetings.
@@ -41,17 +41,17 @@ use stdClass;
 class bigbluebutton_proxy extends proxy_base {
 
     /**
-     * Minimum poll interval for remote bigbluebutton server in seconds.
+     * Minimum poll interval for remote BigBlueButton server in seconds.
      */
     const MIN_POLL_INTERVAL = 2;
 
     /**
-     * Default poll interval for remote bigbluebutton server in seconds.
+     * Default poll interval for remote BigBlueButton server in seconds.
      */
     const DEFAULT_POLL_INTERVAL = 5;
 
     /**
-     * Builds and returns a url for joining a bigbluebutton meeting.
+     * Builds and returns a url for joining a BigBlueButton meeting.
      *
      * @param string $meetingid
      * @param string $username
@@ -269,7 +269,7 @@ class bigbluebutton_proxy extends proxy_base {
 
     /**
      * Helper function returns an array with the profiles (with features per profile) for the different types
-     * of bigbluebuttonbn instances.
+     * of BigBlueButton instances.
      *
      * @return array
      */
@@ -488,7 +488,7 @@ class bigbluebutton_proxy extends proxy_base {
     }
 
     /**
-     * Helper evaluates if the bigbluebutton server used belongs to blindsidenetworks domain.
+     * Helper evaluates if the BigBlueButton server used belongs to blindsidenetworks domain.
      *
      * @return bool
      */

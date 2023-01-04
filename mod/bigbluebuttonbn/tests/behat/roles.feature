@@ -1,5 +1,5 @@
 @mod @mod_bigbluebuttonbn @javascript
-Feature: Bigbluebuttonbn rooms
+Feature: BigBlueButtonBN rooms
   When a meeting is created, roles for each type of participant can be changed
 
   Background:  Make sure that a course is created

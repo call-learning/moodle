@@ -19,7 +19,7 @@ use advanced_testcase;
 use moodle_exception;
 
 /**
- * Tests for the Big Blue Button Plugin class.
+ * Tests for the BigBlueButton Plugin class.
  *
  * @package   mod_bigbluebuttonbn
  * @copyright 2021 Andrew Lyons <andrew@nicols.co.uk>

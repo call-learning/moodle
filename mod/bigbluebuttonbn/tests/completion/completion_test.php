@@ -25,7 +25,7 @@ use mod_bigbluebuttonbn\meeting;
 use mod_bigbluebuttonbn\test\testcase_helper_trait;
 
 /**
- * Tests for Big Blue Button Completion.
+ * Tests for BigBlueButton Completion.
  *
  * @package   mod_bigbluebuttonbn
  * @copyright 2021 - present, Blindside Networks Inc

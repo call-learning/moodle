@@ -43,7 +43,7 @@ Feature: Test the ability to run the full meeting lifecycle (start to end) for g
     And I switch to the main window
     Then I log out
     And I close all opened windows
-    Then I am on the "Room recordings" "mod_bigbluebuttonbn > BigblueButtonBN Guest" page
+    Then I am on the "Room recordings" "mod_bigbluebuttonbn > BigBlueButtonBN Guest" page
     Then I should see "Guest username"
     And I should see "Password"
     And I set the field "username" to "Test Guest User"

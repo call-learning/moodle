@@ -120,7 +120,7 @@ class get_recordings_to_import extends external_api {
         if (!empty($sourcebigbluebuttonbnid)) {
             $sourceinstance = instance::get_from_instanceid($sourcebigbluebuttonbnid);
             if (!$sourceinstance) {
-                throw new \invalid_parameter_exception('Source Bigbluebutton Id is invalid');
+                throw new \invalid_parameter_exception('Source BigBlueButton Id is invalid');
             }
             $sourcecourse = $sourceinstance->get_course();
             // Validate that the user has access to this activity.

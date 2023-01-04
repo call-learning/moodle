@@ -32,7 +32,7 @@ class activity_management_viewed extends base {
      */
     protected function init($crud = 'r', $edulevel = self::LEVEL_PARTICIPATING) {
         parent::init($crud, $edulevel);
-        $this->description = "The user with id '##userid' viewed the bigbluebuttonbn activity management page for " .
+        $this->description = "The user with id '##userid' viewed the BigBlueButtonBN activity management page for " .
             "the course module id '##contextinstanceid'.";
     }
 

@@ -43,7 +43,7 @@ use mod_bigbluebuttonbn\local\config;
 global $CFG;
 
 /**
- * Indicates API features that the bigbluebuttonbn supports.
+ * Indicates API features that the BigBlueButton supports.
  *
  * @param string $feature
  * @return mixed True if yes (some features may use other values)
@@ -89,7 +89,7 @@ function bigbluebuttonbn_supports($feature) {
  * of the new instance.
  *
  * @param stdClass $bigbluebuttonbn An object from the form in mod_form.php
- * @return int The id of the newly inserted bigbluebuttonbn record
+ * @return int The id of the newly inserted BigBlueButtonBN record
  */
 function bigbluebuttonbn_add_instance($bigbluebuttonbn) {
     global $DB;
@@ -590,7 +590,7 @@ function bigbluebuttonbn_inplace_editable($itemtype, $itemid, $newvalue) {
 }
 
 /**
- * Returns all events since a given time in specified bigbluebutton activity.
+ * Returns all events since a given time in specified BigBlueButton activity.
  * We focus here on the two events: play and join.
  *
  * @param array $activities
@@ -651,7 +651,7 @@ function bigbluebuttonbn_get_recent_mod_activity(&$activities, &$index, $timesta
 }
 
 /**
- * Outputs the bigbluebutton logs indicated by $activity.
+ * Outputs the BigBlueButton logs indicated by $activity.
  *
  * @param stdClass $activity the activity object the bigbluebuttonbn resides in
  * @param int $courseid the id of the course the bigbluebuttonbn resides in

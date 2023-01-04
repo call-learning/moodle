@@ -139,7 +139,7 @@ XPATH
                 return new moodle_url('/mod/bigbluebuttonbn/index.php', [
                     'id' => $this->get_course_id($identifier),
                 ]);
-            case 'BigblueButtonBN Guest':
+            case 'BigBlueButtonBN Guest':
                 $cm = $this->get_cm_by_activity_name('bigbluebuttonbn', $identifier);
                 $instance = instance::get_from_cmid($cm->id);
                 $url = $instance->get_guest_access_url();

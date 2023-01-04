@@ -29,7 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
 
-    // Ability to add a new bigbluebuttonbn instance.
+    // Ability to add a new BigBlueButtonBN instance.
     'mod/bigbluebuttonbn:addinstance' => [
         'riskbitmask' => RISK_XSS,
         'captype' => 'write',

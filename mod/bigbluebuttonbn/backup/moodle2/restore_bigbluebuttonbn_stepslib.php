@@ -33,7 +33,7 @@
  */
 class restore_bigbluebuttonbn_activity_structure_step extends restore_activity_structure_step {
     /**
-     * Structure step to restore one bigbluebuttonbn activity.
+     * Structure step to restore one BigBlueButtonBN activity.
      *
      * @return array
      */
@@ -47,7 +47,7 @@ class restore_bigbluebuttonbn_activity_structure_step extends restore_activity_s
     }
 
     /**
-     * Process a bigbluebuttonbn restore.
+     * Process a BigBlueButtonBN restore.
      *
      * @param array $data The data in object form
      * @return void
@@ -57,7 +57,7 @@ class restore_bigbluebuttonbn_activity_structure_step extends restore_activity_s
         $data = (object) $data;
         $data->course = $this->get_courseid();
         $data->timemodified = $this->apply_date_offset($data->timemodified);
-        // Insert the bigbluebuttonbn record.
+        // Insert the BigBlueButtonBN record.
         $newitemid = $DB->insert_record('bigbluebuttonbn', $data);
         // Immediately after inserting "activity" record, call this.
         $this->apply_activity_instance($newitemid);

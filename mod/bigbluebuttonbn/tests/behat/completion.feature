@@ -1,5 +1,5 @@
 @mod @mod_bigbluebuttonbn
-Feature: As a user I can complete a BigblueButtonBN activity by usual or custom criteria
+Feature: As a user I can complete a BigBlueButtonBN activity by usual or custom criteria
 
   Background:  Make sure that a course is created
     Given a BigBlueButton mock server is configured

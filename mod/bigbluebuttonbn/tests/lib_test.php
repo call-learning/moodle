@@ -609,8 +609,8 @@ class lib_test extends \advanced_testcase {
     /**
      * Creates an action event.
      *
-     * @param stdClass $course The course the bigbluebutton activity is in
-     * @param stdClass $bbbactivity The bigbluebutton activity to create an event for
+     * @param stdClass $course The course the BigBlueButton activity is in
+     * @param stdClass $bbbactivity The BigBlueButton activity to create an event for
      * @param string $eventtype The event type. eg. ASSIGN_EVENT_TYPE_DUE.
      * @return bool|calendar_event
      */

@@ -51,7 +51,7 @@ class completion_validate extends external_api {
     /**
      * Mark activity as complete
      *
-     * @param int $bigbluebuttonbnid the bigbluebuttonbn instance id
+     * @param int $bigbluebuttonbnid the BigBlueButtonBN instance id
      * @return array (empty array for now)
      */
     public static function execute(

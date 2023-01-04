@@ -60,7 +60,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         upgrade_mod_savepoint(true, 2015080605, 'bigbluebuttonbn');
     }
     if ($oldversion < 2016011305) {
-        // Define field type to be droped from bigbluebuttonbn.
+        // Define field type to be dropped from BigBlueButtonBN.
         $table4 = new xmldb_table('bigbluebuttonbn');
         $field3 = new xmldb_field('type');
         if ($dbman->field_exists($table4, $field3)) {
@@ -297,7 +297,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         xmldb_bigbluebuttonbn_add_change_field($dbman, 'bigbluebuttonbn', 'lockonjoinconfigurable',
             $fielddefinition);
 
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2019101002, 'bigbluebuttonbn');
     }
 
@@ -305,7 +305,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         // Add index to bigbluebuttonbn_logs (Leftover for CONTRIB-8157).
         xmldb_bigbluebuttonbn_index_table($dbman, 'bigbluebuttonbn_logs', 'userlog',
             ['userid', 'log']);
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2019101004, 'bigbluebuttonbn');
     }
 
@@ -341,7 +341,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         if (!$dbman->table_exists($table)) {
             $dbman->create_table($table);
         }
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2021072905, 'bigbluebuttonbn');
     }
     if ($oldversion < 2021072906) {
@@ -360,13 +360,13 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
             $dbman->add_field($table, $field);
         }
 
-        // State is already used on remote bigbluebutton entity and has not the same semantic.
+        // State is already used on remote BigBlueButton entity and has not the same semantic.
         $field = new xmldb_field('state', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0', 'imported');
         // Launch rename field state to status.
         if ($dbman->field_exists($table, $field)) {
             $dbman->rename_field($table, $field, 'status');
         }
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2021072906, 'bigbluebuttonbn');
     }
 
@@ -383,7 +383,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         if ($dbman->field_exists($table, $remotedata)) {
             $dbman->rename_field($table, $remotedata, 'importeddata');
         }
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2021072907, 'bigbluebuttonbn');
     }
 
@@ -394,7 +394,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
             'classname' => '\mod_bigbluebuttonbn\task\send_notification',
         ]);
 
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2021083100, 'bigbluebuttonbn');
     }
 
@@ -404,7 +404,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
             set_config('bigbluebuttonbn_server_url', config::DEFAULT_SERVER_URL);
             set_config('bigbluebuttonbn_shared_secret', config::DEFAULT_SHARED_SECRET);
         }
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2021091408, 'bigbluebuttonbn');
     }
 
@@ -412,7 +412,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         // Create adhoc task for upgrading of existing bigbluebuttonbn_logs related to recordings.
         upgrade_recordings_task::schedule_upgrade_per_meeting();
         upgrade_recordings_task::schedule_upgrade_per_meeting(true);
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2022021601, 'bigbluebuttonbn');
     }
 
@@ -435,7 +435,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
             core\task\manager::queue_adhoc_task($notificationtask);
         }
 
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2022050600, 'bigbluebuttonbn');
     }
     if ($oldversion < 2022080400) {
@@ -452,7 +452,7 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
         if ($dbman->field_exists($table, $field)) {
             $dbman->drop_field($table, $field);
         }
-        // Bigbluebuttonbn savepoint reached.
+        // BigBlueButtonBN savepoint reached.
         upgrade_mod_savepoint(true, 2022080400, 'bigbluebuttonbn');
     }
     if ($oldversion < 2022101900) {

@@ -1,6 +1,6 @@
 @mod @mod_bigbluebuttonbn @core_form @course
 Feature: Manage and list recordings
-  As a user I am able to import existing recording into another bigbluebutton activity
+  As a user I am able to import existing recording into another BigBlueButton activity
 
   Background:  Make sure that import recording is enabled and course, activities and recording exists
     Given a BigBlueButton mock server is configured

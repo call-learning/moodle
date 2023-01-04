@@ -28,7 +28,7 @@ use stdClass;
  * The recording entity.
  *
  * This is utility class that defines a single recording, and provides methods for their local handling locally, and
- * communication with the bigbluebutton server.
+ * communication with the BigBlueButton server.
  *
  * @package mod_bigbluebuttonbn
  * @copyright 2021 onwards, Blindside Networks Inc
@@ -62,7 +62,7 @@ class recording extends persistent {
     /** @var int A meeting set to be recorded was processed and set back to an awaiting state */
     public const RECORDING_STATUS_RESET = 4;
 
-    /** @var int A meeting set to be recorded was deleted from bigbluebutton */
+    /** @var int A meeting set to be recorded was deleted from BigBlueButton */
     public const RECORDING_STATUS_DELETED = 5;
 
     /** @var bool Whether metadata been changed so the remote information needs to be updated ? */

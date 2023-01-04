@@ -92,7 +92,7 @@ class provider_test extends \core_privacy\tests\provider_testcase {
         $bigbluebuttonbn = $e['instance'];
         $course = $e['course'];
 
-        // Another bigbluebuttonbn activity that has no user activity.
+        // Another BigBlueButtonBN activity that has no user activity.
         $this->getDataGenerator()->create_module('bigbluebuttonbn', ['course' => $course]);
 
         // Create a user which will make a submission.
@@ -197,7 +197,7 @@ class provider_test extends \core_privacy\tests\provider_testcase {
         $cmcontext = context_module::instance($e['instance']->cmid);
         provider::delete_data_for_all_users_in_context($cmcontext);
 
-        // After deletion, the bigbluebuttonbn logs for that activity should have been deleted.
+        // After deletion, the BigBlueButtonBN logs for that activity should have been deleted.
         $count = $DB->count_records('bigbluebuttonbn_logs', ['bigbluebuttonbnid' => $e['instance']->id]);
         $this->assertEquals(0, $count);
     }
@@ -218,7 +218,7 @@ class provider_test extends \core_privacy\tests\provider_testcase {
             [$context->id]);
         provider::delete_data_for_user($contextlist);
 
-        // After deletion the bigbluebuttonbn logs for the first user should have been deleted.
+        // After deletion the BigBlueButtonBN logs for the first user should have been deleted.
         $count = $DB->count_records('bigbluebuttonbn_logs',
             ['bigbluebuttonbnid' => $e['instance']->id, 'userid' => $e['users'][0]->id]);
         $this->assertEquals(0, $count);
@@ -250,7 +250,7 @@ class provider_test extends \core_privacy\tests\provider_testcase {
         $approvedlist = new approved_userlist($context, 'mod_bigbluebuttonbn', $approveduserids);
         provider::delete_data_for_users($approvedlist);
 
-        // After deletion the bigbluebuttonbn logs for the first user should have been deleted.
+        // After deletion the BigBlueButtonBN logs for the first user should have been deleted.
         $count = $DB->count_records('bigbluebuttonbn_logs',
             ['bigbluebuttonbnid' => $e['instance']->id, 'userid' => $e['users'][0]->id]);
         $this->assertEquals(0, $count);
@@ -272,15 +272,15 @@ class provider_test extends \core_privacy\tests\provider_testcase {
         // Create a course.
         $e['course'] = $this->getDataGenerator()->create_course();
 
-        // Create a bigbluebuttonbn instance.
+        // Create a BigBlueButtonBN instance.
         $e['instance'] = $this->getDataGenerator()->create_module('bigbluebuttonbn',
             ['course' => $e['course']->id]);
 
-        // Create users that will use the bigbluebuttonbn instance.
+        // Create users that will use the BigBlueButtonBN instance.
         $e['users'][] = $this->getDataGenerator()->create_user();
         $e['users'][] = $this->getDataGenerator()->create_user();
 
-        // Create the bigbluebuttonbn logs.
+        // Create the BigBlueButtonBN logs.
         $this->getDataGenerator()->get_plugin_generator('mod_bigbluebuttonbn')
             ->create_log(['bigbluebuttonbnid' => $e['instance']->id, 'userid' => $e['users'][0]->id]);
         $this->getDataGenerator()->get_plugin_generator('mod_bigbluebuttonbn')

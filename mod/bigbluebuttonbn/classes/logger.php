@@ -56,7 +56,7 @@ class logger {
     /** @var string The bigbluebuttonbn Callback event */
     public const EVENT_CALLBACK = 'Callback';
 
-    /** @var string The bigbluebuttonbn Summary event */
+    /** @var string The BigBlueButtonBN Summary event */
     public const EVENT_SUMMARY = 'Summary';
 
     /** @var string This is a specific log to mark this log as upgraded: used only in the upgrade process from 2.4
@@ -70,7 +70,7 @@ class logger {
     /** @var string This is a specific log to mark this log as upgraded: used only in the upgrade process from 2.4 */
     public const EVENT_CREATE_MIGRATED = 'create-migrated';
 
-    /** @var string The bigbluebuttonbn meeting_start event */
+    /** @var string The BigBlueButtonBN meeting_start event */
     public const EVENT_MEETING_START = 'meeting_start';
 
     /** @var int The user accessed the session from activity page */
@@ -347,7 +347,7 @@ EOF;
     }
 
     /**
-     * Register a bigbluebuttonbn event from an instance.
+     * Register a BigBlueButtonBN event from an instance.
      *
      * @param instance $instance
      * @param string $event

@@ -32,8 +32,8 @@ class meeting_created extends base {
      */
     protected function init($crud = 'r', $edulevel = self::LEVEL_OTHER) {
         parent::init($crud, $edulevel);
-        $this->description = "The user with id '##userid' created a bigbluebutton meeting for " .
-            "the bigbluebuttonbn activity with id '##objectid' for the course id '##courseid'.";
+        $this->description = "The user with id '##userid' created a BigBlueButton Meeting for " .
+            "the BigBlueButtonBN activity with id '##objectid' for the course id '##courseid'.";
     }
 
     /**

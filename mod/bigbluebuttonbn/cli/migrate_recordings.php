@@ -59,18 +59,18 @@ if ($options['help']) {
         "Execute / Rexecute migration for recordings.
 Sometimes when the remote BigBlueButton server is temporarily not accessible and we upgrade to the new way of storing recordings
 some activities end up without recordings. This script will allow to go through each meeting and fetch all recordings
-that have not yet been fetched from the remote BigblueButton server.
+that have not yet been fetched from the remote BigBlueButton server.
 
 
 Options:
 -h, --help                  Print out this help
--c, --courseid              Course identifier (id) in which we look for BigblueButton activities and recordings. If not specified
-                            we check every single BigblueButton activity.
--b, --bigbluebuttoncmid     Identifier for the bigbluebutton activity we would like to specifically retrieve recordings for. If not
-                            specified we check every single BigblueButton activity
+-c, --courseid              Course identifier (id) in which we look for BigBlueButton activities and recordings. If not specified
+                            we check every single BigBlueButton activity.
+-b, --bigbluebuttoncmid     Identifier for the BigBlueButton activity we would like to specifically retrieve recordings for. If not
+                            specified we check every single BigBlueButton activity
                             (scoped or not to a course depending on -c option).
 -f,--forcemigrate           Force the 'remigration' of recordings, so even if a recording has been marked as migrated in the logs
-                            we still fetch the data from the Bigbluebutton server.
+                            we still fetch the data from the BigBlueButton server.
 Example:
 \$ sudo -u www-data /usr/bin/php mod/bigbluebuttonbn/cli/migrate_recordings.php -c=4 -f=1
 ";
@@ -89,7 +89,7 @@ if (!empty($options['courseid'])) {
     [$course, $bbcm] = get_course_and_cm_from_cmid($options['bigbluebuttoncmid']);
     $bbcms = [$bbcm];
 } else {
-    // All bigbluebutton activities.
+    // All BigBlueButton ctivities.
     foreach ($DB->get_fieldset_select('bigbluebuttonbn', 'id', '') as $bbid) {
         [$course, $bbcm] = get_course_and_cm_from_instance($bbid, 'bigbluebuttonbn');
         array_push($bbcms, $bbcm);
@@ -98,7 +98,7 @@ if (!empty($options['courseid'])) {
 foreach ($bbcms as $bbcm) {
     $instance = instance::get_from_cmid($bbcm->id);
     $adhoctask = new upgrade_recordings_task();
-    cli_writeln("Processing BigbluebButton {$instance->get_meeting_name()}(id:{$instance->get_instance_id()}),"
+    cli_writeln("Processing  BigBlueButton {$instance->get_meeting_name()}(id:{$instance->get_instance_id()}),"
         . " in course {$bbcm->get_course()->fullname}(id:{$bbcm->get_course()->id})....");
     if ($options['forcemigrate']) {
         // We set the value of the log back to the original value so it get evalated once again.

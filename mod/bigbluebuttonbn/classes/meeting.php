@@ -156,7 +156,7 @@ class meeting {
     }
 
     /**
-     * Creates a bigbluebutton meeting, send the message to BBB and returns the response in an array.
+     * Creates a BigBlueButtonBN meeting, send the message to BBB and returns the response in an array.
      *
      * @return array
      */
@@ -494,7 +494,7 @@ class meeting {
      */
     public static function meeting_events(instance $instance, object $data):  string {
         $bigbluebuttonbn = $instance->get_instance_data();
-        // Validate that the bigbluebuttonbn activity corresponds to the meeting_id received.
+        // Validate that the BigBlueButtonBN activity corresponds to the meeting_id received.
         $meetingidelements = explode('[', $data->{'meeting_id'});
         $meetingidelements = explode('-', $meetingidelements[0]);
         if (!isset($bigbluebuttonbn) || $bigbluebuttonbn->meetingid != $meetingidelements[0]) {

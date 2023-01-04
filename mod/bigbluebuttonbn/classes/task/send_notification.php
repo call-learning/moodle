@@ -67,7 +67,7 @@ abstract class send_notification extends adhoc_task {
     }
 
     /**
-     * Get the bigbluebutton instance that this notification is for.
+     * Get the BigBlueButton instance that this notification is for.
      *
      * @return instance
      */

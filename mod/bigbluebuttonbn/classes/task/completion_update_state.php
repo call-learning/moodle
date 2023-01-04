@@ -28,7 +28,7 @@ use mod_bigbluebuttonbn\local\proxy\bigbluebutton_proxy;
  */
 class completion_update_state extends adhoc_task {
     /**
-     * Run bigbluebuttonbn cron.
+     * Run BigBlueButtonBN cron.
      */
     public function execute() {
         // Get the custom data.

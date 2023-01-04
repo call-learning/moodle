@@ -44,7 +44,7 @@ class upgrade_recordings_task extends adhoc_task {
     }
 
     /**
-     * Process all bigbluebuttonbn logs looking for entries which should be converted to meetings.
+     * Process all BigBlueButtonBN logs looking for entries which should be converted to meetings.
      *
      * @param string $meetingid
      * @param bool $isimported

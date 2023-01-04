@@ -74,9 +74,9 @@ class behat_mod_bigbluebuttonbn_generator extends behat_generator_base {
     }
 
     /**
-     * Look up the id of a bigbluebutton activity from its name.
+     * Look up the id of a BigBlueButton activity from its name.
      *
-     * @param string $bbactivityname the bigbluebutton activity name, for example 'Test meeting'.
+     * @param string $bbactivityname the BigBlueButton activity name, for example 'Test meeting'.
      * @return int corresponding id.
      * @throws Exception
      */
