@@ -101,10 +101,6 @@ switch (strtolower($action)) {
         // Moodle event logger: Create an event for meeting left.
         logger::log_meeting_left_event($instance);
 
-        // Update the cache.
-        $meeting = new meeting($instance);
-        $meeting->update_cache();
-
         // Check the origin page.
         $select = "userid = ? AND log = ?";
         $params = [

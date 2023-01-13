@@ -106,8 +106,6 @@ class end_meeting extends external_api {
             ];
         }
         logger::log_meeting_ended_event($instance);
-        // Update the cache.
-        $meeting->update_cache();
         notification::add(get_string('end_session_notification', 'mod_bigbluebuttonbn'), notification::INFO);
         return [];
     }

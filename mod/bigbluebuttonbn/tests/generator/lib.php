@@ -25,10 +25,12 @@
  */
 
 use core\plugininfo\mod;
+use core\task\manager;
 use mod_bigbluebuttonbn\instance;
 use mod_bigbluebuttonbn\local\config;
 use mod_bigbluebuttonbn\logger;
 use mod_bigbluebuttonbn\recording;
+use mod_bigbluebuttonbn\task\refresh_meeting_info;
 
 /**
  * bigbluebuttonbn module data generator
@@ -365,6 +367,13 @@ class mod_bigbluebuttonbn_generator extends \testing_module_generator {
             $roomconfig['meetingID'] = $meetingid;
         }
         $this->send_mock_request('backoffice/createMeeting', [], $roomconfig);
+        // Create the refresh task.
+        $refreshtask = new refresh_meeting_info();
+        $refreshtask->set_custom_data((object)[
+            'instanceid' => $instance->get_instance_id(),
+            'groupid' => $instance->get_group_id()
+        ]);
+        manager::queue_adhoc_task($refreshtask);
         return (object) $roomconfig;
     }
 

@@ -56,4 +56,12 @@ $definitions = [
     'currentfetch' => [
         'mode' => cache_store::MODE_REQUEST,
     ],
+
+    // Meeting cache stores information about the meeting. This is refreshed via a cron job.
+    'meetings_cache' => [
+        'mode' => cache_store::MODE_APPLICATION,
+        'invalidationevents' => [
+            'mod_bigbluebuttonbn/refreshmeetingcache',
+        ],
+    ]
 ];

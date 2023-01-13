@@ -117,11 +117,11 @@ class lib_test extends \advanced_testcase {
             'groupid' => $instance->get_group_id(),
         ]);
         $meeting = new meeting($instance);
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $this->assertTrue($meeting->is_running());
         $result = bigbluebuttonbn_delete_instance($bbactivity->id);
         $this->assertTrue($result);
-        $meeting->update_cache();
+        $meeting = new meeting($instance);
         $this->assertFalse($meeting->is_running());
     }
 
@@ -162,14 +162,14 @@ class lib_test extends \advanced_testcase {
                 'groupid' => $instance->get_group_id(),
             ]);
             $meeting = new meeting($instance);
-            $meeting->update_cache();
+            $this->run_meeting_refresh_task();
             $this->assertTrue($meeting->is_running());
             $meetings[] = $meeting;
         }
         $result = bigbluebuttonbn_delete_instance($bbactivity->id);
         $this->assertTrue($result);
+        $this->run_meeting_refresh_task();
         foreach ($meetings as $meeting) {
-            $meeting->update_cache();
             $this->assertFalse($meeting->is_running());
         }
     }

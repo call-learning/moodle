@@ -18,12 +18,14 @@ namespace mod_bigbluebuttonbn\local\proxy;
 
 use cache;
 use completion_info;
+use core\task\manager;
 use Exception;
 use mod_bigbluebuttonbn\completion\custom_completion;
 use mod_bigbluebuttonbn\instance;
 use mod_bigbluebuttonbn\local\config;
 use mod_bigbluebuttonbn\local\exceptions\bigbluebutton_exception;
 use mod_bigbluebuttonbn\local\exceptions\server_not_available_exception;
+use mod_bigbluebuttonbn\task\refresh_meeting_info;
 use moodle_url;
 use stdClass;
 
@@ -101,32 +103,6 @@ class bigbluebutton_proxy extends proxy_base {
             $data['userdata-bbb_override_default_locale'] = $currentlang;
         }
         return self::action_url('join', $data);
-    }
-
-    /**
-     * Perform api request on BBB.
-     *
-     * @return null|string
-     */
-    public static function get_server_version(): ?string {
-        $cache = cache::make('mod_bigbluebuttonbn', 'serverinfo');
-        $serverversion = $cache->get('serverversion');
-
-        if (!$serverversion) {
-            $xml = self::fetch_endpoint_xml('');
-            if (!$xml || $xml->returncode != 'SUCCESS') {
-                return null;
-            }
-
-            if (!isset($xml->version)) {
-                return null;
-            }
-
-            $serverversion = (string) $xml->version;
-            $cache->set('serverversion', $serverversion);
-        }
-
-        return (double) $serverversion;
     }
 
     /**
@@ -269,6 +245,28 @@ class bigbluebutton_proxy extends proxy_base {
 
     /**
      * Helper function returns an array with the profiles (with features per profile) for the different types
+     * of bigbluebuttonbn instances that the user is allowed to create.
+     *
+     * @param bool $room
+     * @param bool $recording
+     *
+     * @return array
+     */
+    public static function get_instance_type_profiles_create_allowed(bool $room, bool $recording): array {
+        $profiles = self::get_instance_type_profiles();
+        if (!$room) {
+            unset($profiles[instance::TYPE_ROOM_ONLY]);
+            unset($profiles[instance::TYPE_ALL]);
+        }
+        if (!$recording) {
+            unset($profiles[instance::TYPE_RECORDING_ONLY]);
+            unset($profiles[instance::TYPE_ALL]);
+        }
+        return $profiles;
+    }
+
+    /**
+     * Helper function returns an array with the profiles (with features per profile) for the different types
      * of bigbluebuttonbn instances.
      *
      * @return array
@@ -295,28 +293,6 @@ class bigbluebutton_proxy extends proxy_base {
             ],
         ];
         return $instanceprofiles;
-    }
-
-    /**
-     * Helper function returns an array with the profiles (with features per profile) for the different types
-     * of bigbluebuttonbn instances that the user is allowed to create.
-     *
-     * @param bool $room
-     * @param bool $recording
-     *
-     * @return array
-     */
-    public static function get_instance_type_profiles_create_allowed(bool $room, bool $recording): array {
-        $profiles = self::get_instance_type_profiles();
-        if (!$room) {
-            unset($profiles[instance::TYPE_ROOM_ONLY]);
-            unset($profiles[instance::TYPE_ALL]);
-        }
-        if (!$recording) {
-            unset($profiles[instance::TYPE_RECORDING_ONLY]);
-            unset($profiles[instance::TYPE_ALL]);
-        }
-        return $profiles;
     }
 
     /**
@@ -374,6 +350,32 @@ class bigbluebutton_proxy extends proxy_base {
     }
 
     /**
+     * Perform api request on BBB.
+     *
+     * @return null|string
+     */
+    public static function get_server_version(): ?string {
+        $cache = cache::make('mod_bigbluebuttonbn', 'serverinfo');
+        $serverversion = $cache->get('serverversion');
+
+        if (!$serverversion) {
+            $xml = self::fetch_endpoint_xml('');
+            if (!$xml || $xml->returncode != 'SUCCESS') {
+                return null;
+            }
+
+            if (!isset($xml->version)) {
+                return null;
+            }
+
+            $serverversion = (string) $xml->version;
+            $cache->set('serverversion', $serverversion);
+        }
+
+        return (double) $serverversion;
+    }
+
+    /**
      * Handle the server not being available.
      *
      * @param instance $instance
@@ -421,6 +423,7 @@ class bigbluebutton_proxy extends proxy_base {
     /**
      * Create a Meeting
      *
+     * @param instance $instance ,
      * @param array $data
      * @param array $metadata
      * @param string|null $presentationname
@@ -429,6 +432,7 @@ class bigbluebutton_proxy extends proxy_base {
      * @throws bigbluebutton_exception
      */
     public static function create_meeting(
+        instance $instance,
         array $data,
         array $metadata,
         ?string $presentationname = null,
@@ -455,7 +459,14 @@ class bigbluebutton_proxy extends proxy_base {
         if ($xml->hasBeenForciblyEnded === 'true') {
             throw new bigbluebutton_exception('index_error_forciblyended');
         }
+        // Start refreshing data for this meeting.
+        $refreshtask = new refresh_meeting_info();
+        $refreshtask->set_custom_data((object) [
+            'instanceid' => $instance->get_instance_id(),
+            'groupid' => $instance->get_group_id()
+        ]);
 
+        manager::queue_adhoc_task($refreshtask);
         return [
             'meetingID' => (string) $xml->meetingID,
             'internalMeetingID' => (string) $xml->internalMeetingID,
@@ -468,12 +479,35 @@ class bigbluebutton_proxy extends proxy_base {
      * Get meeting info for a given meeting id
      *
      * @param string $meetingid
-     * @return array
+     * @return array|null return null if meeting not found
      */
-    public static function get_meeting_info(string $meetingid): array {
-        $xmlinfo = self::fetch_endpoint_xml('getMeetingInfo', ['meetingID' => $meetingid]);
-        self::assert_returned_xml($xmlinfo, ['meetingid' => $meetingid]);
-        return (array) $xmlinfo;
+    public static function get_meeting_info(string $meetingid): ?array {
+        $cache = cache::make('mod_bigbluebuttonbn', 'meetings_cache');
+        $info = $cache->get($meetingid);
+        if (empty($info)) {
+            try {
+                $xmlinfo = self::fetch_endpoint_xml('getMeetingInfo', ['meetingID' => $meetingid]);
+                self::assert_returned_xml($xmlinfo, ['meetingid' => $meetingid]);
+                $info = json_decode(json_encode($xmlinfo), true);
+                $cache->set($meetingid, $info);
+            } catch (bigbluebutton_exception $e) {
+                return null;
+            }
+        }
+        return $info;
+    }
+
+    /**
+     * Clear the meeting info cache.
+     *
+     * Note: this should only be called in the relevant adhoc task and not directly by the code.
+     * @param string $meetingid
+     * @return void
+     */
+    public static function refresh_meeting_info_cache(string $meetingid) {
+        $cache = cache::make('mod_bigbluebuttonbn', 'meetings_cache');
+        $cache->delete($meetingid);
+        self::get_meeting_info($meetingid);
     }
 
     /**
@@ -485,6 +519,8 @@ class bigbluebutton_proxy extends proxy_base {
     public static function end_meeting(string $meetingid, string $modpw): void {
         $xml = self::fetch_endpoint_xml('end', ['meetingID' => $meetingid, 'password' => $modpw]);
         self::assert_returned_xml($xml, ['meetingid' => $meetingid]);
+        $cache = cache::make('mod_bigbluebuttonbn', 'meetings_cache');
+        $cache->delete($meetingid);
     }
 
     /**

@@ -225,6 +225,7 @@ class get_join_url_test extends \externallib_advanced_testcase {
             'groupid' => $instance->get_group_id(),
             'participants' => 2
         ]);
+        $this->run_meeting_refresh_task();
         $this->setUser($user1);
         $joinurl = $this->get_join_url($instance->get_cm_id());
         $this->assertNotNull($joinurl['warnings']);

@@ -504,7 +504,8 @@ function mod_bigbluebuttonbn_core_calendar_provide_event_action(
             return null;
         }
         // Get if the user can join.
-        $meetinginfo = meeting::get_meeting_info_for_instance($instance);
+        $meeting = new meeting($instance);
+        $meetinginfo = $meeting->get_meeting_info();
     } catch (moodle_exception $e) {
         debugging('Error - Cannot retrieve info from meeting ('.$instance->get_meeting_id().') ' . $e->getMessage());
         return null;

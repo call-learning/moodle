@@ -25,9 +25,11 @@
 namespace mod_bigbluebuttonbn\test;
 
 use context_module;
+use core\task\manager;
 use mod_bigbluebuttonbn\instance;
 use mod_bigbluebuttonbn\local\proxy\recording_proxy;
 use mod_bigbluebuttonbn\meeting;
+use mod_bigbluebuttonbn\task\refresh_meeting_info;
 use stdClass;
 use testing_data_generator;
 use core\plugininfo\mod;
@@ -180,7 +182,6 @@ trait testcase_helper_trait {
         $bbbgenerator = $this->getDataGenerator()->get_plugin_generator('mod_bigbluebuttonbn');
         // Create the meetings on the mock server, so like this we can find the recordings.
         $meeting = new meeting($instance);
-        $meeting->update_cache(); // The meeting has just been created but we need to force fetch info from the server.
         if (!$meeting->is_running()) {
             $additionalmeetingdata = array_merge([
                 'instanceid' => $instance->get_instance_id(),
@@ -338,5 +339,17 @@ trait testcase_helper_trait {
         }
 
         return $logs;
+    }
+
+    /**
+     * Helper function to run the meeting refresh routine.
+     *
+     * This now essentially dependends on an adhoc task that should be running.
+     * @return void
+     */
+    protected function run_meeting_refresh_task() {
+        ob_start();
+        $this->runAdhocTasks(refresh_meeting_info::class);
+        ob_end_clean();
     }
 }

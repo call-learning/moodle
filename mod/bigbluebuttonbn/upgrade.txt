@@ -1,5 +1,12 @@
 This files describes API changes in the bigbluebuttonbn code.
 
+=== 4.2 ===
+* meeting:get_join_url has now been changed to get_internal_join_url and has become a private/helper method. This method should have not
+been public as it exposes the real BigBlueButton join url that we should not expose (as the bbb_view.php should be our primary point of call
+for joining and finishing a meeting).
+* We use now an adhoc task to retrieve meeting information so to have unique point of communication between Moodle and BigBlueButton.
+You need to make sure that the cron is configured for low latency adhoc tasks (https://docs.moodle.org/401/en/Cron#Low_latency_adhoc_tasks)
+
 === 4.1 ===
 * External function mod_bigbluebuttonbn\external\meeting_info now return the list of the instance features and whether they are
   enabled or not.

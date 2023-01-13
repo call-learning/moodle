@@ -152,7 +152,7 @@ class meeting_test extends \advanced_testcase {
         $this->assertStringContainsString("in progress", $meetinginfo->statusmessage);
         $this->assertEquals($groupid, $meetinginfo->groupid);
         $meeting->end_meeting();
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $meetinginfo = $meeting->get_meeting_info();
         $this->assertFalse($meetinginfo->statusrunning);
 
@@ -182,7 +182,7 @@ class meeting_test extends \advanced_testcase {
         $this->resetAfterTest();
         [$meeting, $useringroup, $usernotingroup, $groupid, $activity] = $this->prepare_meeting($type, $groupname, $groupmode);
         $this->setUser($useringroup);
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $this->assertEquals($canjoin['useringroup'], $meeting->can_join());
         if ($meeting->can_join()) {
             $meetinginfo = $meeting->get_meeting_info();
@@ -190,7 +190,6 @@ class meeting_test extends \advanced_testcase {
         }
         if ($groupname) {
             $this->setUser($usernotingroup);
-            $meeting->update_cache();
             $this->assertEquals($canjoin['usernotingroup'], $meeting->can_join());
         }
     }
@@ -215,14 +214,12 @@ class meeting_test extends \advanced_testcase {
         [$meeting, $useringroup, $usernotingroup, $groupid, $activity] =
             $this->prepare_meeting($type, $groupname, $groupmode, true, $dates);
         $this->setUser($useringroup);
-        $meeting->update_cache();
         $this->assertEquals($canjoin['useringroup'], $meeting->can_join());
         // We check that admin can not join outside opening/closing times either.
         $this->setAdminUser();
         $this->assertEquals(false, $meeting->can_join());
         if ($groupname) {
             $this->setUser($usernotingroup);
-            $meeting->update_cache();
             $this->assertEquals($canjoin['usernotingroup'], $meeting->can_join());
             $this->setAdminUser();
             $this->assertEquals(false, $meeting->can_join());
@@ -254,7 +251,6 @@ class meeting_test extends \advanced_testcase {
 
         // The moderator has not joined.
         $this->setUser($student);
-        $meeting->update_cache();
         $this->expectException(\mod_bigbluebuttonbn\local\exceptions\meeting_join_exception::class);
         meeting::join_meeting($instance);
     }
@@ -286,18 +282,18 @@ class meeting_test extends \advanced_testcase {
         $bbbgenerator->create_meeting([
             'instanceid' => $instance->get_instance_id(),
         ]);
-
+        $this->run_meeting_refresh_task();
         $this->setUser($moderator);
-        $meeting->update_cache();
         $joinurl = $meeting->join(logger::ORIGIN_BASE);
         $this->assertIsString($joinurl);
         $this->join_meeting($joinurl);
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $this->assertCount(1, $meeting->get_attendees());
 
         // The student can now join the meeting as a moderator is present.
         $this->setUser($student);
         $joinurl = $meeting->join(logger::ORIGIN_BASE);
+        $this->run_meeting_refresh_task();
         $this->assertIsString($joinurl);
     }
 
@@ -312,13 +308,13 @@ class meeting_test extends \advanced_testcase {
             $this->prepare_meeting(instance::TYPE_ALL, null, NOGROUPS, true);
         $this->setUser($useringroup);
         $this->join_meeting($meeting->join(logger::ORIGIN_BASE));
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $this->assertCount(1, $meeting->get_attendees());
         $otheruser = $this->getDataGenerator()->create_and_enrol($this->get_course());
         $this->setUser($otheruser);
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $this->join_meeting($meeting->join(logger::ORIGIN_BASE));
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $this->assertCount(2, $meeting->get_attendees());
     }
 
@@ -333,19 +329,19 @@ class meeting_test extends \advanced_testcase {
             $this->prepare_meeting(instance::TYPE_ALL, null, NOGROUPS, true);
         $this->setUser($useringroup);
         $this->join_meeting($meeting->join(logger::ORIGIN_BASE));
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $meetinginfo = $meeting->get_meeting_info();
         $this->assertEquals(1, $meetinginfo->participantcount);
         $this->assertEquals(0, $meetinginfo->moderatorcount);
         $this->setUser($usernotingroup);
         $this->join_meeting($meeting->join(logger::ORIGIN_BASE));
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $meetinginfo = $meeting->get_meeting_info();
         $this->assertEquals(2, $meetinginfo->participantcount);
         $this->assertEquals(0, $meetinginfo->moderatorcount);
         $this->setAdminUser();
         $this->join_meeting($meeting->join(logger::ORIGIN_BASE));
-        $meeting->update_cache();
+        $this->run_meeting_refresh_task();
         $meetinginfo = $meeting->get_meeting_info();
         $this->assertEquals(2, $meetinginfo->participantcount);
         $this->assertEquals(1, $meetinginfo->moderatorcount);
@@ -425,6 +421,7 @@ class meeting_test extends \advanced_testcase {
                 'groupid' => $instance->get_group_id()
             ]);
         }
+        $this->run_meeting_refresh_task();
         $meeting = new meeting($instance);
         return [$meeting, $useringroup, $usernotingroup, $groupid, $activity];
     }

@@ -19,6 +19,8 @@ namespace mod_bigbluebuttonbn;
 use cache;
 use cache_store;
 use context_course;
+use core\check\performance\debugging;
+use core\task\manager;
 use core_tag_tag;
 use Exception;
 use Firebase\JWT\Key;
@@ -27,6 +29,7 @@ use mod_bigbluebuttonbn\local\exceptions\bigbluebutton_exception;
 use mod_bigbluebuttonbn\local\exceptions\meeting_join_exception;
 use mod_bigbluebuttonbn\local\helpers\roles;
 use mod_bigbluebuttonbn\local\proxy\bigbluebutton_proxy;
+use mod_bigbluebuttonbn\task\refresh_meeting_info;
 use stdClass;
 
 /**
@@ -40,9 +43,6 @@ class meeting {
 
     /** @var instance The bbb instance */
     protected $instance;
-
-    /** @var stdClass Info about the meeting */
-    protected $meetinginfo = null;
 
     /**
      * Constructor for the meeting object.
@@ -79,11 +79,8 @@ class meeting {
      *
      * @return stdClass
      */
-    public function get_meeting_info() {
-        if (!$this->meetinginfo) {
-            $this->meetinginfo = $this->do_get_meeting_info();
-        }
-        return $this->meetinginfo;
+    public function get_meeting_info(): stdClass {
+        return $this->do_get_meeting_info();
     }
 
     /**
@@ -92,10 +89,20 @@ class meeting {
      * @param instance $instance
      * @param bool $updatecache Whether to update the cache when fetching the information
      * @return stdClass
+     * @deprecated since Moodle 4.2
      */
     public static function get_meeting_info_for_instance(instance $instance, bool $updatecache = false): stdClass {
+        debugging("The get_meeting_info_for_instance has been deprecated in favor of creating the meeting and retrieving
+        information via ::get_meeting_info()");
         $meeting = new self($instance);
-        return $meeting->do_get_meeting_info($updatecache);
+        if ($updatecache) {
+            debugging(
+                "The get_meeting_info_for_instance(...\$updatecache) parameter has been deprecated.
+                Cache is updated now via adhoc_tasks",
+                DEBUG_DEVELOPER
+            );
+        }
+        return $meeting->get_meeting_info();
     }
 
     /**
@@ -123,9 +130,13 @@ class meeting {
 
     /**
      * Force update the meeting in cache.
+     * @deprecated since Moodle 4.2
      */
     public function update_cache() {
-        $this->meetinginfo = $this->do_get_meeting_info(true);
+        debugging(
+            "The update_cache method has been deprecated. The cache is updated now via adhoc_tasks",
+            DEBUG_DEVELOPER
+        );
     }
 
     /**
@@ -166,7 +177,7 @@ class meeting {
         $presentation = $this->instance->get_presentation_for_bigbluebutton_upload(); // The URL must contain nonce.
         $presentationname = $presentation['name'] ?? null;
         $presentationurl = $presentation['url'] ?? null;
-        $response = bigbluebutton_proxy::create_meeting($data, $metadata, $presentationname, $presentationurl);
+        $response = bigbluebutton_proxy::create_meeting($this->instance, $data, $metadata, $presentationname, $presentationurl);
         // New recording management: Insert a recordingID that corresponds to the meeting created.
         if ($this->instance->is_recorded()) {
             $recording = new recording(0, (object) [
@@ -188,11 +199,11 @@ class meeting {
     }
 
     /**
-     * Get meeting join URL
+     * Helper method to get the real BigblueButton meeting join URL
      *
      * @return string
      */
-    public function get_join_url(): string {
+    private function get_internal_join_url(): string {
         return bigbluebutton_proxy::get_join_url(
             $this->instance->get_meeting_id(),
             $this->instance->get_user_fullname(),
@@ -228,10 +239,9 @@ class meeting {
     /**
      * Return meeting information for this meeting.
      *
-     * @param bool $updatecache Whether to update the cache when fetching the information
      * @return stdClass
      */
-    protected function do_get_meeting_info(bool $updatecache = false): stdClass {
+    protected function do_get_meeting_info(): stdClass {
         $instance = $this->instance;
         $meetinginfo = (object) [
             'instanceid' => $instance->get_instance_id(),
@@ -258,7 +268,8 @@ class meeting {
         $meetinginfo->statusrunning = false;
         $meetinginfo->createtime = null;
 
-        $info = self::retrieve_cached_meeting_info($this->instance->get_meeting_id(), $updatecache);
+        // Retrieve meeting info.
+        $info = bigbluebutton_proxy::get_meeting_info($instance->get_meeting_id());
         if (!empty($info)) {
             $meetinginfo->statusrunning = $info['running'] === 'true';
             $meetinginfo->createtime = $info['createTime'] ?? null;
@@ -335,39 +346,6 @@ class meeting {
             return get_string('view_message_conference_has_ended', 'bigbluebuttonbn');
         }
         return get_string('view_message_conference_room_ready', 'bigbluebuttonbn');
-    }
-
-    /**
-     * Gets a meeting info object cached or fetched from the live session.
-     *
-     * @param string $meetingid
-     * @param bool $updatecache
-     *
-     * @return array
-     */
-    protected static function retrieve_cached_meeting_info($meetingid, $updatecache = false) {
-        $cachettl = (int) config::get('waitformoderator_cache_ttl');
-        $cache = cache::make_from_params(cache_store::MODE_APPLICATION, 'mod_bigbluebuttonbn', 'meetings_cache');
-        $result = $cache->get($meetingid);
-        $now = time();
-        if (!$updatecache && !empty($result) && $now < ($result['creation_time'] + $cachettl)) {
-            // Use the value in the cache.
-            return (array) json_decode($result['meeting_info']);
-        }
-        // We set the cache to an empty value so then if get_meeting_info raises an exception we still have the
-        // info about the last creation_time, so we don't ask the server again for a bit.
-        $defaultcacheinfo = ['creation_time' => time(), 'meeting_info' => '[]'];
-        // Pings again and refreshes the cache.
-        try {
-            $meetinginfo = bigbluebutton_proxy::get_meeting_info($meetingid);
-            $cache->set($meetingid, ['creation_time' => time(), 'meeting_info' => json_encode($meetinginfo)]);
-        } catch (bigbluebutton_exception $e) {
-            // The meeting is not created on BBB side, so we set the value in the cache so we don't poll again
-            // and return an empty array.
-            $cache->set($meetingid, $defaultcacheinfo);
-            return [];
-        }
-        return $meetinginfo;
     }
 
     /**
@@ -549,7 +527,6 @@ class meeting {
      * @return void
      */
     protected function prepare_meeting_join_action(int $origin) {
-        $this->do_get_meeting_info(true);
         if ($this->is_running()) {
             if (
                     $this->instance->has_user_limit_been_reached($this->get_participant_count())
@@ -564,9 +541,6 @@ class meeting {
 
         // Moodle event logger: Create an event for meeting joined.
         logger::log_meeting_joined_event($this->instance, $origin);
-
-        // Before executing the redirect, increment the number of participants.
-        roles::participant_joined($this->instance->get_meeting_id(), $this->instance->is_moderator());
     }
     /**
      * Join a meeting.
@@ -577,7 +551,7 @@ class meeting {
      */
     public function join(int $origin): string {
         $this->prepare_meeting_join_action($origin);
-        return $this->get_join_url();
+        return $this->get_internal_join_url();
     }
 
     /**
@@ -590,6 +564,6 @@ class meeting {
      */
     public function guest_join(int $origin, string $userfullname): string {
         $this->prepare_meeting_join_action($origin);
-        return $this->get_join_url();
+        return $this->get_internal_join_url();
     }
 }

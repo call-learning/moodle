@@ -45,7 +45,7 @@ class meeting_info extends external_api {
         return new external_function_parameters([
             'bigbluebuttonbnid' => new external_value(PARAM_INT, 'bigbluebuttonbn instance id'),
             'groupid' => new external_value(PARAM_INT, 'bigbluebuttonbn group id', VALUE_DEFAULT, 0),
-            'updatecache' => new external_value(PARAM_BOOL, 'update cache ?', VALUE_DEFAULT, false),
+            'updatecache' => new external_value(PARAM_BOOL, '(Deprecated) update cache ?', VALUE_DEFAULT, false),
         ]);
     }
 
@@ -54,7 +54,7 @@ class meeting_info extends external_api {
      *
      * @param int $bigbluebuttonbnid the bigbluebuttonbn instance id
      * @param int $groupid
-     * @param bool $updatecache
+     * @param bool|null $updatecache
      * @return array
      * @throws \moodle_exception
      * @throws restricted_context_exception
@@ -62,19 +62,23 @@ class meeting_info extends external_api {
     public static function execute(
         int $bigbluebuttonbnid,
         int $groupid,
-        bool $updatecache = false
+        ?bool $updatecache
     ): array {
         // Validate the bigbluebuttonbnid ID.
         [
             'bigbluebuttonbnid' => $bigbluebuttonbnid,
             'groupid' => $groupid,
-            'updatecache' => $updatecache,
         ] = self::validate_parameters(self::execute_parameters(), [
             'bigbluebuttonbnid' => $bigbluebuttonbnid,
             'groupid' => $groupid,
-            'updatecache' => $updatecache,
         ]);
-
+        if (!is_null($updatecache)) {
+            debugging(
+                "The get_meeting_info_for_instance(...\$updatecache) parameter has been deprecated.
+                Cache is updated now via adhoc_tasks",
+                DEBUG_DEVELOPER
+            );
+        }
         // Fetch the session, features, and profile.
         $instance = instance::get_from_instanceid($bigbluebuttonbnid);
         $instance->set_group_id($groupid);
@@ -93,7 +97,8 @@ class meeting_info extends external_api {
                 bigbluebutton_proxy::get_server_not_available_url($instance),
                 bigbluebutton_proxy::get_server_not_available_message($instance));
         }
-        $meetinginfo = (array) meeting::get_meeting_info_for_instance($instance, $updatecache);
+        $meeting = new meeting($instance);
+        $meetinginfo = (array) $meeting->get_meeting_info();
 
         // Make the structure WS friendly.
         array_walk($meetinginfo['features'], function(&$value, $key){

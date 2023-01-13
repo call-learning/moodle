@@ -642,6 +642,7 @@ $string['end_session_confirm_title'] = 'Really end session?';
 $string['end_session_confirm'] = 'Are you sure you want to end the session?';
 $string['end_session_notification'] = 'The session has ended.';
 $string['cachedef_currentfetch'] = 'Data to list any recording fetched recently.';
+$string['cachedef_meetings_cache'] = 'Meeting information cache';
 $string['cachedef_serverinfo'] = 'Remote server information';
 $string['cachedef_recordings'] = 'Recording metadata';
 $string['cachedef_validatedurls'] = 'Cache of validated URL checks';

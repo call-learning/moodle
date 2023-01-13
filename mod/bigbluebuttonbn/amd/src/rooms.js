@@ -51,21 +51,14 @@ export const init = (bigbluebuttonbnid, pollInterval) => {
             window.open(joinButton.href, 'bigbluebutton_conference');
             e.preventDefault();
             // Gives the user a bit of time to go into the meeting before polling the room.
-            setTimeout(() => {
-                roomUpdater.updateRoom(true);
-            }, pollInterval);
         }
     });
 
     document.addEventListener(eventTypes.sessionEnded, () => {
-        roomUpdater.stop();
-        roomUpdater.updateRoom();
         fetchNotifications();
     });
 
     window.addEventListener(eventTypes.currentSessionEnded, () => {
-        roomUpdater.stop();
-        roomUpdater.updateRoom();
         fetchNotifications();
     });
     // Room update.
@@ -80,11 +73,11 @@ export const setupWindowAutoClose = (closeDelay = 2000) => {
     notifyCurrentSessionEnded(window.opener);
     window.addEventListener('onbeforeunload', () => {
             window.opener.setTimeout(() => {
-                roomUpdater.updateRoom(true);
+                roomUpdater.updateRoom();
             }, closeDelay);
         },
         {
             once: true
         });
-    window.close(); // This does not work as scripts can only close windows that are opened by themselves.
+    window.close();
 };

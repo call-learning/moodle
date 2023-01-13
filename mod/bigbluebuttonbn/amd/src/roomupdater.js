@@ -29,14 +29,11 @@ import {getMeetingInfo} from './repository';
 let timerReference = null;
 let timerRunning = false;
 let pollInterval = 0;
-let pollIntervalFactor = 1;
-const MAX_POLL_INTERVAL_FACTOR = 10;
 
 const resetValues = () => {
     timerRunning = false;
     timerReference = null;
     pollInterval = 0;
-    pollIntervalFactor = 1;
 };
 
 /**
@@ -69,13 +66,8 @@ const poll = () => {
         return;
     }
     updateRoom()
-        .then((updateOk) => {
-            if (!updateOk) {
-                pollIntervalFactor = (pollIntervalFactor < MAX_POLL_INTERVAL_FACTOR) ?
-                    pollIntervalFactor + 1 : MAX_POLL_INTERVAL_FACTOR;
-                // We make sure if there is an error that we do not try too often.
-            }
-            timerReference = setTimeout(() => poll(), pollInterval * pollIntervalFactor);
+        .then(() => {
+            timerReference = setTimeout(() => poll(), pollInterval);
             return true;
         })
         .catch();
@@ -84,10 +76,9 @@ const poll = () => {
 /**
  * Update the room information.
  *
- * @param {boolean} [updatecache=false] should we update cache
  * @returns {Promise}
  */
-export const updateRoom = (updatecache = false) => {
+export const updateRoom = () => {
     const bbbRoomViewElement = document.getElementById('bigbluebuttonbn-room-view');
     if (bbbRoomViewElement === null) {
         return Promise.resolve(false);
@@ -98,7 +89,7 @@ export const updateRoom = (updatecache = false) => {
 
     const pendingPromise = new Pending('mod_bigbluebuttonbn/roomupdater:updateRoom');
 
-    return getMeetingInfo(bbbId, groupId, updatecache)
+    return getMeetingInfo(bbbId, groupId)
         .then(data => {
             // Just make sure we have the right information for the template.
             data.haspresentations = !!(data.presentations && data.presentations.length);
