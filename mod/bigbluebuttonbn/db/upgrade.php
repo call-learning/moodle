@@ -486,6 +486,21 @@ function xmldb_bigbluebuttonbn_upgrade($oldversion = 0) {
     // Automatically generated Moodle v4.1.0 release upgrade line.
     // Put any upgrade step following this.
 
+    if ($oldversion < 2023011801) {
+
+        // Define index log (not unique) to be dropped form bigbluebuttonbn_logs.
+        $table = new xmldb_table('bigbluebuttonbn_logs');
+        $index = new xmldb_index('log', XMLDB_INDEX_NOTUNIQUE, ['log']);
+
+        // Conditionally launch drop index log.
+        if ($dbman->index_exists($table, $index)) {
+            $dbman->drop_index($table, $index);
+        }
+
+        // Bigbluebuttonbn savepoint reached.
+        upgrade_mod_savepoint(true, 2023011801, 'bigbluebuttonbn');
+    }
+
     return true;
 }
 
