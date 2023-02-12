@@ -1,0 +1,75 @@
+[submodule "admin/tool/mergeusers"]
+	path = admin/tool/mergeusers
+	url = https://github.com/ndunand/moodle-tool_mergeusers
+[submodule "blocks/dedication"]
+	path = blocks/dedication
+	url = https://github.com/catalyst/moodle-block_dedication
+[submodule "filter/syntaxhighlighter"]
+	path = filter/syntaxhighlighter
+	url = https://github.com/sharpchi/moodle-filter_syntaxhighlighter
+[submodule "lib/editor/tinymce/plugins/mathslate"]
+	path = lib/editor/tinymce/plugins/mathslate
+	url = https://github.com/dthies/moodle-editor_tinymce-mathslate
+[submodule "mod/choicegroup"]
+	path = mod/choicegroup
+	url = https://github.com/ndunand/moodle-mod_choicegroup
+[submodule "mod/pdfannotator"]
+	path = mod/pdfannotator
+	url = https://github.com/rwthmoodle/moodle-mod_pdfannotator
+[submodule "mod/questionnaire"]
+	path = mod/questionnaire
+	url = https://github.com/PoetOS/moodle-mod_questionnaire
+[submodule "mod/scormlite"]
+	path = mod/scormlite
+	url = https://github.com/sfraysse/moodle-scormlite
+[submodule "mod/topaze"]
+	path = mod/topaze
+	url = https://github.com/sfraysse/moodle-topaze
+[submodule "mod/wooclap"]
+	path = mod/wooclap
+	url = https://github.com/wooclap/moodle-mod_wooclap
+[submodule "plagiarism/compilatio"]
+	path = plagiarism/compilatio
+	url = https://github.com/compilatio/moodle-plagiarism_compilatio/
+[submodule "question/behaviour/adaptive_adapted_for_coderunner"]
+	path = question/behaviour/adaptive_adapted_for_coderunner
+	url = https://github.com/trampgeek/moodle-qbehaviour_adaptive_adapted_for_coderunner
+[submodule "question/behaviour/adaptivemultipart"]
+	path = question/behaviour/adaptivemultipart
+	url = https://github.com/maths/moodle-qbehaviour_adaptivemultipart
+[submodule "question/behaviour/dfcbmexplicitvaildate"]
+	path = question/behaviour/dfcbmexplicitvaildate
+	url = https://github.com/maths/moodle-qbehaviour_dfcbmexplicitvaildate
+[submodule "question/behaviour/dfexplicitvaildate"]
+	path = question/behaviour/dfexplicitvaildate
+	url = https://github.com/maths/moodle-qbehaviour_dfexplicitvaildate
+[submodule "report/benchmark"]
+	path = report/benchmark
+	url = https://github.com/mikasmart/moodle-report_benchmark
+[submodule "question/type/coderunner"]
+	path = question/type/coderunner
+	url = https://github.com/trampgeek/moodle-qtype_coderunner
+[submodule "question/type/combined"]
+	path = question/type/combined
+	url = https://github.com/moodleou/moodle-qtype_combined
+[submodule "question/type/formulas"]
+	path = question/type/formulas
+	url = https://github.com/FormulasQuestion/moodle-qtype_formulas
+[submodule "question/type/multinumerical"]
+	path = question/type/multinumerical
+	url = https://github.com/ndunand/moodle-qtype_multinumerical
+[submodule "question/type/oumultiresponse"]
+	path = question/type/oumultiresponse
+	url = https://github.com/moodleou/moodle-qtype_oumultiresponse
+[submodule "question/type/pmatch"]
+	path = question/type/pmatch
+	url = https://github.com/moodleou/moodle-qtype_pmatch
+[submodule "question/type/stack"]
+	path = question/type/stack
+	url = https://github.com/maths/moodle-qtype_stack
+[submodule "question/type/varnumeric"]
+	path = question/type/varnumeric
+	url = https://github.com/moodleou/moodle-qtype_varnumeric
+[submodule "question/type/varnumericset"]
+	path = question/type/varnumericset
+	url = https://github.com/moodleou/moodle-qtype_varnumericset
