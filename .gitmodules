@@ -73,3 +73,6 @@
 [submodule "question/type/varnumericset"]
 	path = question/type/varnumericset
 	url = https://github.com/moodleou/moodle-qtype_varnumericset
+[submodule "mod/bigbluebuttonbn"]
+	path = mod/bigbluebuttonbn
+	url = https://github.com/blindsidenetworks/moodle-mod_bigbluebuttonbn
