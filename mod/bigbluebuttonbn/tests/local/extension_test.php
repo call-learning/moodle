@@ -126,6 +126,23 @@ class extension_test extends \advanced_testcase {
     }
 
     /**
+     * Test the mutate_action_url with plugin enabled
+     *
+     * @return void
+     * @covers \mod_bigbluebuttonbn\extension::mutate_action_url
+     */
+    public function test_mutate_action_url() {
+        // Enable plugin.
+        $this->enable_plugins(true);
+        // Set a random var here.
+        $var1 = [];
+        $var2 = ['Test'];
+        extension::mutate_action_url('sample_mutate', $var1, $var2);
+        $this->assertNotEmpty($var1);
+        $this->assertCount(2, $var2);
+    }
+
+    /**
      * Data provider for testing get_class_implementing
      *
      * @return array[]

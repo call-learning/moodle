@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 namespace mod_bigbluebuttonbn;
 
+use mod_bigbluebuttonbn\local\extension\action_url_mutate;
+use mod_bigbluebuttonbn\local\extension\mod_form_manager;
 use mod_bigbluebuttonbn\local\extension\mod_instance_helper;
 use stdClass;
 
@@ -31,6 +33,21 @@ class extension {
      * Plugin name for extension
      */
     const BBB_EXTENSION_PLUGIN_NAME = 'bbbext';
+
+    /**
+     * Invoke a subplugin hook that implies a mutation of its parameters
+     *
+     * @param string $action
+     * @param array $data
+     * @param array $metadata
+     * @return void
+     */
+    public static function mutate_action_url(string $action = '', array &$data = [], array &$metadata = []) {
+        $allmutationclass = self::get_class_implementing(action_url_mutate::class);
+        foreach ($allmutationclass as $mutationclass) {
+            $mutationclass::execute($action, $data, $metadata);
+        }
+    }
 
     /**
      * Add instance processing
