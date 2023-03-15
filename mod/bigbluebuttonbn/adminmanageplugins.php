@@ -15,18 +15,29 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version for BigBlueButtonBN Moodle Activity Module.
+ * Allows the admin to manage assignment plugins
  *
- * @package   mod_bigbluebuttonbn
- * @copyright 2010 onwards, Blindside Networks Inc
+ * @copyright 2023 onwards, Blindside Networks Inc
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Jesus Federico  (jesus [at] blindsidenetworks [dt] com)
- * @author    Fred Dixon  (ffdixon [at] blindsidenetworks [dt] com)
+ * @author    Laurent David (laurent@call-learning.fr)
  */
 
-defined('MOODLE_INTERNAL') || die;
+use mod_bigbluebuttonbn\local\plugins\admin_plugin_manager;
 
+require_once(__DIR__ . '/../../config.php');
+global $PAGE;
+require_login();
+$action = optional_param('action', null, PARAM_PLUGIN);
+$plugin = optional_param('plugin', null, PARAM_PLUGIN);
 
-$plugin->version = 2023031600;
-$plugin->requires = 2022111800;
-$plugin->component = 'mod_bigbluebuttonbn';
+if (!empty($plugin)) {
+    require_sesskey();
+}
+
+// Create the class for this controller.
+$pluginmanager = new admin_plugin_manager();
+
+$PAGE->set_context(context_system::instance());
+
+// Execute the controller.
+$pluginmanager->execute($action, $plugin);

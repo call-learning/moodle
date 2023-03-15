@@ -15,18 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version for BigBlueButtonBN Moodle Activity Module.
+ * This file defines the admin settings for this plugin
  *
  * @package   mod_bigbluebuttonbn
- * @copyright 2010 onwards, Blindside Networks Inc
+ * @copyright 2023 onwards, Blindside Networks Inc
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @author    Jesus Federico  (jesus [at] blindsidenetworks [dt] com)
- * @author    Fred Dixon  (ffdixon [at] blindsidenetworks [dt] com)
+ * @author    Laurent David  (laurent [at] call-learning [dt] fr)
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-
-$plugin->version = 2023031600;
-$plugin->requires = 2022111800;
-$plugin->component = 'mod_bigbluebuttonbn';
+$settings->add(new admin_setting_configtext('bbbext_simple/config_extension',
+    new lang_string('config_extension', 'bbbext_simple'),
+    new lang_string('config_extension', 'bbbext_simple'),
+    1024,
+    PARAM_TEXT));

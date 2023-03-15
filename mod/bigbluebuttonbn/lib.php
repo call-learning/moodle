@@ -107,6 +107,9 @@ function bigbluebuttonbn_add_instance($bigbluebuttonbn) {
     logger::log_instance_created($bigbluebuttonbn);
     // Complete the process.
     mod_helper::process_post_save($bigbluebuttonbn);
+
+    // Call any active subplugin so to signal a new creation.
+    \mod_bigbluebuttonbn\extension::add_instance($bigbluebuttonbn);
     return $bigbluebuttonbn->id;
 }
 
@@ -142,6 +145,8 @@ function bigbluebuttonbn_update_instance($bigbluebuttonbn) {
 
     // Complete the process.
     mod_helper::process_post_save($bigbluebuttonbn);
+    // Call any active subplugin so to signal update.
+    \mod_bigbluebuttonbn\extension::update_instance($bigbluebuttonbn);
     return true;
 }
 
@@ -193,6 +198,9 @@ function bigbluebuttonbn_delete_instance($id) {
     }
 
     $result = true;
+
+    // Call any active subplugin so to signal deletion.
+    \mod_bigbluebuttonbn\extension::delete_instance($id);
 
     // Delete the instance.
     if (!$DB->delete_records('bigbluebuttonbn', ['id' => $id])) {
