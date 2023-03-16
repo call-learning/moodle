@@ -160,7 +160,7 @@ class extension_test extends \advanced_testcase {
                 'result' => [
                     '\\bbbext_simple\\bigbluebuttonbn\\mod_instance_helper'
                 ]
-            ]
+            ],
         ];
     }
 

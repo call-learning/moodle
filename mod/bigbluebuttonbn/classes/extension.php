@@ -35,6 +35,21 @@ class extension {
     const BBB_EXTENSION_PLUGIN_NAME = 'bbbext';
 
     /**
+     * Get form managers for this module and extensions
+     *
+     * @param \MoodleQuickForm $mform we have to provide this parameter as it is a private member of the form
+     * and we might modify the form content.
+     * @param stdClass|null $instancedata
+     * @return array
+     */
+    public static function get_mod_form_managers(\MoodleQuickForm $mform, ?stdClass $instancedata): array {
+        $allformclasses = self::get_class_implementing(mod_form_manager::class);
+        return array_map(function($fm) use ($mform, $instancedata) {
+            return new $fm($mform, $instancedata);
+        }, $allformclasses);
+    }
+
+    /**
      * Invoke a subplugin hook that implies a mutation of its parameters
      *
      * @param string $action
