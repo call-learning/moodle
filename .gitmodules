@@ -79,3 +79,6 @@
 [submodule "local/regperiod"]
 	path = local/regperiod
 	url = https://github.com/Pedagotheque/moodle-local_regperiod.git
+[submodule "mod/questionnaire"]
+	path = mod/questionnaire
+	url = https://github.com/call-learning/moodle-mod_questionnaire.git
