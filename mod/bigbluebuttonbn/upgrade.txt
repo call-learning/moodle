@@ -1,6 +1,7 @@
 This files describes API changes in the bigbluebuttonbn code.
 
 === 4.1.4 ===
+* Make instance class constructor private and use the factory method to create instances.
 * Simplify bigbluebutton_proxy get_join_url so to pass only parameters that cannot be deduced from the instance.
 
 === 4.1.3 ===
