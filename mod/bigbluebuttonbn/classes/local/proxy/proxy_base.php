@@ -53,11 +53,18 @@ abstract class proxy_base {
      * @param string $action
      * @param array $data
      * @param array $metadata
+     * @param int|null $instanceid
      * @return string
      */
-    protected static function action_url(string $action = '', array $data = [], array $metadata = []): string {
+    protected static function action_url(
+        string $action = '',
+        array $data = [],
+        array $metadata = [],
+        ?int $instanceid = null
+    ): string {
         $baseurl = self::sanitized_url() . $action . '?';
-        ['data' => $additionaldata, 'metadata' => $additionalmetadata] = extension::action_url_addons($action, $data, $metadata);
+        ['data' => $additionaldata, 'metadata' => $additionalmetadata] =
+            extension::action_url_addons($action, $data, $metadata, $instanceid);
         $data = array_merge($data, $additionaldata ?? []);
         $metadata = array_merge($metadata, $additionalmetadata ?? []);
 

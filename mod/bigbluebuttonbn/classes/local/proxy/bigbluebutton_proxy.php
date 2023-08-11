@@ -84,13 +84,11 @@ class bigbluebutton_proxy extends proxy_base {
     /**
      * Internal helper method to builds and returns a url for joining a BigBlueButton meeting.
      *
-     *
      * @param instance $instance
      * @param string|null $jointime = null
      * @param string|null $userfullname
      * @param bool $isguestjoin
      * @return string
-     * @throws \coding_exception
      */
     private static function internal_get_join_url(
         instance $instance,
@@ -120,7 +118,7 @@ class bigbluebutton_proxy extends proxy_base {
         if (!empty(trim($currentlang))) {
             $data['userdata-bbb_override_default_locale'] = $currentlang;
         }
-        return self::action_url('join', $data);
+        return self::action_url('join', $data, [], $instance->get_instance_id());
     }
 
     /**
@@ -445,6 +443,7 @@ class bigbluebutton_proxy extends proxy_base {
      * @param array $metadata
      * @param string|null $presentationname
      * @param string|null $presentationurl
+     * @param int|null $instanceid
      * @return array
      * @throws bigbluebutton_exception
      */
@@ -452,9 +451,10 @@ class bigbluebutton_proxy extends proxy_base {
         array $data,
         array $metadata,
         ?string $presentationname = null,
-        ?string $presentationurl = null
+        ?string $presentationurl = null,
+        ?int $instanceid = null
     ): array {
-        $createmeetingurl = self::action_url('create', $data, $metadata);
+        $createmeetingurl = self::action_url('create', $data, $metadata, $instanceid);
 
         $curl = new curl();
         if (!is_null($presentationname) && !is_null($presentationurl)) {
@@ -488,10 +488,11 @@ class bigbluebutton_proxy extends proxy_base {
      * Get meeting info for a given meeting id
      *
      * @param string $meetingid
+     * @param int|null $instanceid
      * @return array
      */
-    public static function get_meeting_info(string $meetingid): array {
-        $xmlinfo = self::fetch_endpoint_xml('getMeetingInfo', ['meetingID' => $meetingid]);
+    public static function get_meeting_info(string $meetingid, ?int $instanceid = null): array {
+        $xmlinfo = self::fetch_endpoint_xml('getMeetingInfo', ['meetingID' => $meetingid], [], $instanceid);
         self::assert_returned_xml($xmlinfo, ['meetingid' => $meetingid]);
         return (array) $xmlinfo;
     }
@@ -501,9 +502,10 @@ class bigbluebutton_proxy extends proxy_base {
      *
      * @param string $meetingid
      * @param string $modpw
+     * @param int|null $instanceid
      */
-    public static function end_meeting(string $meetingid, string $modpw): void {
-        $xml = self::fetch_endpoint_xml('end', ['meetingID' => $meetingid, 'password' => $modpw]);
+    public static function end_meeting(string $meetingid, string $modpw, ?int $instanceid = null): void {
+        $xml = self::fetch_endpoint_xml('end', ['meetingID' => $meetingid, 'password' => $modpw], [], $instanceid);
         self::assert_returned_xml($xml, ['meetingid' => $meetingid]);
     }
 
