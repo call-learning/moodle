@@ -267,7 +267,7 @@ class mod_bigbluebuttonbn_mod_form extends moodleform_mod {
      * @return bool True if one or more rules is enabled, false if none are.
      */
     public function completion_rule_enabled($data) {
-        $enabled =  (!empty($data['completionattendanceenabled']) && $data['completionattendance'] != 0)
+        $enabled = (!empty($data['completionattendanceenabled']) && $data['completionattendance'] != 0)
             || !empty($data['completionengagementchats'])
             || !empty($data['completionengagementtalks'])
             || !empty($data['completionengagementraisehand'])
