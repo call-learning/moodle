@@ -101,7 +101,7 @@ class bigbluebutton_proxy extends proxy_base {
             'fullName' => $userfullname ?? $instance->get_user_fullname(),
             'password' => $instance->get_current_user_password(),
             'logoutURL' => $isguestjoin ? $instance->get_guest_access_url()->out(false) : $instance->get_logout_url()->out(false),
-            'role' => $instance->get_current_user_role()
+            'role' => $instance->get_current_user_role(),
         ];
 
         if (!$isguestjoin) {

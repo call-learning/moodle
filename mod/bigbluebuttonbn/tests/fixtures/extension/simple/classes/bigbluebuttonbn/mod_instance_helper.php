@@ -35,7 +35,7 @@ class mod_instance_helper extends \mod_bigbluebuttonbn\local\extension\mod_insta
         global $DB;
         $DB->insert_record('bbbext_simple', (object) [
             'bigbluebuttonbnid' => $bigbluebuttonbn->id,
-            'newfield' => $bigbluebuttonbn->newfield ?? ''
+            'newfield' => $bigbluebuttonbn->newfield ?? '',
         ]);
     }
 

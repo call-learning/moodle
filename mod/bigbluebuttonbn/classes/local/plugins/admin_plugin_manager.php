@@ -97,14 +97,14 @@ class admin_plugin_manager {
             'hideshow',
             'order',
             'settings',
-            'uninstall'
+            'uninstall',
         ]);
         $table->define_headers([
             get_string('subplugintype_bbbext', 'mod_bigbluebuttonbn'),
             get_string('version'), get_string('hide') . '/' . get_string('show'),
             get_string('order'),
             get_string('settings'),
-            get_string('uninstallplugin', 'core_admin')
+            get_string('uninstallplugin', 'core_admin'),
         ]);
         $table->set_attribute('id', extension::BBB_EXTENSION_PLUGIN_NAME . 'plugins');
         $table->set_attribute('class', 'admintable generaltable');

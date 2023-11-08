@@ -64,7 +64,7 @@ class extension {
         }
         return [
             'data' => $additionaldata,
-            'metadata' => $additionalmetadata
+            'metadata' => $additionalmetadata,
         ];
     }
 
