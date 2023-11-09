@@ -248,11 +248,10 @@ class admin_plugin_manager {
      * @return string The next page to display
      */
     private function plugins_hide(string $plugin): string {
+        global $DB;
         $class = \core_plugin_manager::resolve_plugininfo_class(extension::BBB_EXTENSION_PLUGIN_NAME);
         $class::enable_plugin($plugin, false);
-        cache_helper::purge_by_event('mod_bigbluebuttonbn/pluginenabledisabled');
-        // Also clear the cache for all BigBlueButtonModules.
-        rebuild_course_cache(0, true);
+        $this->rebuild_cm_cache();
         return 'view';
     }
 
@@ -266,7 +265,28 @@ class admin_plugin_manager {
         $class = \core_plugin_manager::resolve_plugininfo_class(extension::BBB_EXTENSION_PLUGIN_NAME);
         $class::enable_plugin($plugin, true);
         cache_helper::purge_by_event('mod_bigbluebuttonbn/pluginenabledisabled');
+        $this->rebuild_cm_cache();
         return 'view';
+    }
+
+    /**
+     * Rebuild course module cache for BigBlueButton activities
+     *
+     * @return void
+     * @throws \coding_exception
+     */
+    private function rebuild_cm_cache() {
+        global $DB;
+        cache_helper::purge_by_event('mod_bigbluebuttonbn/pluginenabledisabled');
+        // Also clear the cache for all BigBlueButtonModules.
+        $sql = "SELECT cm.id, cm.course FROM {course_modules} cm
+                JOIN {modules} m ON m.id = cm.module
+                WHERE m.name = :modulename";
+        $cms = $DB->get_records_sql($sql, ['modulename' => 'bigbluebuttonbn']);
+        foreach ($cms as $cm) {
+            \course_modinfo::purge_course_module_cache($cm->course, $cm->id);
+        }
+        rebuild_course_cache(0, true);
     }
 
     /**
