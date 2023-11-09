@@ -82,3 +82,6 @@
 [submodule "mod/questionnaire"]
 	path = mod/questionnaire
 	url = https://github.com/call-learning/moodle-mod_questionnaire.git
+[submodule "local/dash_by_role"]
+	path = local/dash_by_role
+	url = https://github.com/call-learning/moodle-local_dash_by_role.git
