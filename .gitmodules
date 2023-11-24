@@ -1,0 +1,6 @@
+[submodule "local/competvet"]
+	path = local/competvet
+	url = https://github.com/call-learning/moodle-local_competvet.git
+[submodule "mod/competvet"]
+	path = mod/competvet
+	url = https://github.com/call-learning/moodle-mod_competvet.git
