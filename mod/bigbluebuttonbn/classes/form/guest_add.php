@@ -19,6 +19,7 @@ use context;
 use core_form\dynamic_form;
 use mod_bigbluebuttonbn\instance;
 use mod_bigbluebuttonbn\local\exceptions\bigbluebutton_exception;
+use mod_bigbluebuttonbn\logger;
 use mod_bigbluebuttonbn\task\send_guest_emails;
 use moodle_exception;
 use moodle_url;
@@ -65,6 +66,8 @@ class guest_add extends dynamic_form {
             );
             $adhoctask->set_instance_id($data->id);
             \core\task\manager::queue_adhoc_task($adhoctask);
+            $instance = $this->get_instance_from_params();
+            logger::log_guest_added_event($instance, $allmails);
         }
         return [
             'result' => true,

@@ -24,6 +24,7 @@
  */
 namespace mod_bigbluebuttonbn;
 
+use mod_bigbluebuttonbn\event\guest_added;
 use mod_bigbluebuttonbn\test\testcase_helper_trait;
 
 /**
@@ -68,5 +69,25 @@ class logger_test extends \advanced_testcase {
 
         logger::log_recording_played_event($instance, 1);
         $this->assertTrue($DB->record_exists('bigbluebuttonbn_logs', ['bigbluebuttonbnid' => $instance->get_instance_id()]));
+    }
+
+    /**
+     * Test log method
+     */
+    public function test_log_guest_added_event(): void {
+        $this->resetAfterTest();
+        $eventsink = $this->redirectEvents();
+        list($bbactivitycontext, $bbactivitycm, $bbactivity) = $this->create_instance();
+        $instance = instance::get_from_instanceid($bbactivity->id);
+
+        logger::log_guest_added_event($instance, ['email1@email.com', 'email2@email.com']);
+        $events = array_filter($eventsink->get_events(), function ($event) {
+            return $event->component === 'mod_bigbluebuttonbn' && $event->target === 'guest' && $event->action === 'added';
+        });
+        $this->assertNotEmpty($events);
+        $event = end($events);
+        $this->assertEquals($bbactivitycm->instance, $event->objectid);
+        $this->assertNotEmpty($event->other);
+        $this->assertStringContainsString('email1@email.com', $event->other['emails']);
     }
 }

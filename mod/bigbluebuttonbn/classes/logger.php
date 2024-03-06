@@ -347,6 +347,24 @@ EOF;
     }
 
     /**
+     * Log the relevant events when we add a list of guest users to the meeting
+     *
+     * @param instance $instance
+     * @param array $guestlist
+     */
+    public static function log_guest_added_event(instance $instance, array $guestlist): void {
+        self::log_moodle_event(
+            $instance,
+            events::$events['guest_add'],
+            [
+                'other' => [
+                    'emails' => join(',', $guestlist),
+                ],
+            ]
+        );
+    }
+
+    /**
      * Register a bigbluebuttonbn event from an instance.
      *
      * @param instance $instance

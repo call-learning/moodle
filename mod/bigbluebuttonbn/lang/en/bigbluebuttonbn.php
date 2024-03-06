@@ -343,7 +343,7 @@ $string['guest_invitation_full_message'] = 'Hi,
 <p>Link: {$a->guestjoinurl}<br/>
 <p>Password: {$a->guestpassword}</p>
 <p>If you need help, please contact {$a->sender}.</p>';
-
+$string['guest_added'] = 'Guest added';
 $string['index_confirm_end'] = 'Do you want to end the session?';
 $string['index_disabled'] = 'disabled';
 $string['index_enabled'] = 'enabled';
