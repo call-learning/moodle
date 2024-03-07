@@ -67,6 +67,9 @@ abstract class base extends \core\event\base {
         ];
         $string = $this->description;
         foreach ($vars as $key => $value) {
+            if (!is_string($value)) {
+                $value = json_encode($value);
+            }
             $string = str_replace("##" . $key, $value, $string);
         }
         return $string;
