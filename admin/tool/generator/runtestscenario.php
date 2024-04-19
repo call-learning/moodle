@@ -44,7 +44,7 @@ $output = $PAGE->get_renderer('core');
 echo $output->header();
 echo $output->heading(get_string('testscenario', 'tool_generator'));
 
-echo $output->paragraph(get_string('testscenario_description', 'tool_generator'));
+echo $output->container(get_string('testscenario_description', 'tool_generator'));
 
 try {
     $runner->init();
@@ -54,7 +54,7 @@ try {
     die;
 }
 
-echo $output->paragraph(get_string('testscenario_filedesc', 'tool_generator'));
+echo $output->container(get_string('testscenario_filedesc', 'tool_generator'));
 
 $mform = new featureimport();
 
