@@ -4,3 +4,6 @@
 [submodule "mod/competvet"]
 	path = mod/competvet
 	url = https://github.com/call-learning/moodle-mod_competvet.git
+[submodule "local/loginas"]
+	path = local/loginas
+	url = https://github.com/bmbrands/moodle-local_loginas.git
